@@ -26,8 +26,12 @@ export interface ICourse {
   courseName: string;
   courseDescription: string;
   startDate: string;
+  startTime: string;
+  endTime: string;
   endDate: string;
   department: string;
+  courseId: number;
+  day: number;
 }
 export interface IResponseCourse {
   courses: Array<ICourse>;

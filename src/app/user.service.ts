@@ -10,7 +10,7 @@ import { TokenService } from './token.service';
   providedIn: 'root',
 })
 export class UserService {
-  base_url = 'https://localhost:5001/';
+  base_url = 'https://localhost:44311/';
   private Token = new ReplaySubject<ILoginResp>(1);
   private currentUserSource = new ReplaySubject<IUSer>(1);
   currentToken$ = this.Token.asObservable();

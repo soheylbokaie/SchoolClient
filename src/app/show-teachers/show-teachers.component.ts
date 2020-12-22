@@ -12,7 +12,7 @@ import { UserService } from '../user.service';
 })
 export class ShowTeachersComponent implements OnInit {
   constructor(private http: HttpClient, private route: ActivatedRoute) {}
-  base_url = 'https://localhost:5001/';
+  base_url = 'https://localhost:44311/';
   teachers: Array<ITeacherView>;
   departmentId: string;
   ngOnInit(): void {

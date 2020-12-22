@@ -28,7 +28,7 @@ export class AdminPanelCoursesComponent implements OnInit {
     private toastr: ToastrService
   ) {}
 
-  base_url = 'https://localhost:5001/';
+  base_url = 'https://localhost:44311/';
   pagingInfop: IPaging;
   courses: ICourse[];
   mode: boolean = false;

@@ -27,7 +27,8 @@ import { EditFComponent } from './edit-f/edit-f.component';
 import { AdminPanelStudentsComponent } from './admin-panel-students/admin-panel-students.component';
 import { AdminPanelTeachersComponent } from './admin-panel-teachers/admin-panel-teachers.component';
 import { AdminPanelCoursesComponent } from './admin-panel-courses/admin-panel-courses.component';
-import { ProfileComponent } from './profile/profile.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { CoursesControllComponent } from './courses-controll/courses-controll.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { ProfileComponent } from './profile/profile.component';
     AdminPanelStudentsComponent,
     AdminPanelTeachersComponent,
     AdminPanelCoursesComponent,
-    ProfileComponent,
+    UserProfileComponent,
+    CoursesControllComponent,
   ],
   imports: [
     BrowserModule,

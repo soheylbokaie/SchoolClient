@@ -38,7 +38,7 @@ export class AdminPanelStudentsComponent implements OnInit {
   editMode: boolean = false;
   editElement: number = null;
 
-  base_url = 'https://localhost:5001/';
+  base_url = 'https://localhost:44311/';
   ngOnInit(): void {
     this.s();
     this.formAddInit();

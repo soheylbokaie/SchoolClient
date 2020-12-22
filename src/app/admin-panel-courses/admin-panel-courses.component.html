@@ -104,7 +104,10 @@
                     <td colspan="1">{{ course.endDate }}</td>
                     <td colspan="1">{{ course.department }}</td>
                     <td colspan="1">
-                      <button [routerLink]="[]" class="btn btn-success">
+                      <button
+                        [routerLink]="['/admin-panel/Courses', course.courseId]"
+                        class="btn btn-success"
+                      >
                         <i class="fa fa-sign-in"></i>
                       </button>
                     </td>

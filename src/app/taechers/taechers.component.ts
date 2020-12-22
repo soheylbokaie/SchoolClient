@@ -9,7 +9,7 @@ import { IDepartment } from '../Interfaces/Department-interface';
   styleUrls: ['./taechers.component.css'],
 })
 export class TaechersComponent implements OnInit {
-  base_url = 'https://localhost:5001/';
+  base_url = 'https://localhost:44311/';
   departments: IDepartment;
   constructor(private http: HttpClient) {}
   ngOnInit(): void {

@@ -52,7 +52,7 @@ export class AdminPanelDepartmentsComponent implements OnInit {
   editMode: boolean = false;
   editElement: number = null;
 
-  base_url = 'https://localhost:5001/';
+  base_url = 'https://localhost:44311/';
   ngOnInit(): void {
     this.GetallDepartments();
     this.formAddInit();
@@ -125,6 +125,7 @@ export class AdminPanelDepartmentsComponent implements OnInit {
         },
         error: (error) => {
           console.log('There was an error!', error);
+          this.toastr.error("There is Teachers in this Department","error")
         },
       });
   }
