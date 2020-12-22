@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { IDepartment, ITeacherView } from '../Interfaces/app-interface';
+import { ITeacherView } from '../Interfaces/app-interface';
+import { IDepartment } from '../Interfaces/Department-interface';
 
 @Component({
   selector: 'app-taechers',

@@ -31,17 +31,8 @@ export interface ILoginResp {
   role: string;
 }
 
-export interface IDepartment {
-  name: string;
-  departmentId: number;
-}
-
 export interface IUSer {
   name: string;
   id: string;
   role: string;
-}
-
-export interface IAddDepartment {
-  name: string;
 }

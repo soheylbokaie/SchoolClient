@@ -1,22 +1,8 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import {
-  Component,
-  ElementRef,
-  EventEmitter,
-  OnInit,
-  Output,
-  ViewChild,
-} from '@angular/core';
-import {
-  AbstractControl,
-  FormControl,
-  FormGroup,
-  ValidatorFn,
-  Validators,
-} from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { HttpService } from '../http.service';
 import {
   IAddDepartment,
   IDepartment,
@@ -24,27 +10,27 @@ import {
   IResponseDepartment,
 } from '../Interfaces/Department-interface';
 import { IPaging } from '../Interfaces/paging-interface';
+import { IResponseStundet, IStudent } from '../Interfaces/Students-interface';
 import { UserService } from '../user.service';
 
 @Component({
-  selector: 'app-admin-panel-departments',
-  templateUrl: './admin-panel-departments.component.html',
+  selector: 'app-admin-panel-students',
+  templateUrl: './admin-panel-students.component.html',
   styleUrls: [
-    './admin-panel-departments.component.css',
+    './admin-panel-students.component.css',
     '../admin-panel/sb-admin-2.min.css',
   ],
 })
-export class AdminPanelDepartmentsComponent implements OnInit {
+export class AdminPanelStudentsComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private route: ActivatedRoute,
     private userService: UserService,
-    private toastr: ToastrService,
-    private router: Router
+    private toastr: ToastrService
   ) {}
   @ViewChild('edit_name') edit_name: ElementRef;
   addForm: FormGroup;
-  departments: IDepartment[];
+  departments: IStudent[];
   pagingInfop: IPaging;
   mode: boolean = true;
   deletItem: string = null;
@@ -54,12 +40,13 @@ export class AdminPanelDepartmentsComponent implements OnInit {
 
   base_url = 'https://localhost:5001/';
   ngOnInit(): void {
-    this.GetallDepartments();
+    this.s();
     this.formAddInit();
+
     this.get_Authorize();
   }
 
-  public GetallDepartments() {
+  public s() {
     this.route.queryParams.subscribe((obj) => {
       this.pagingInfop = {
         currentPages: !!obj['PageNumber'] ? +obj['PageNumber'] : 1,
@@ -73,21 +60,10 @@ export class AdminPanelDepartmentsComponent implements OnInit {
         .set('PageNumber', this.pagingInfop.currentPages.toString())
         .set('PageSize', this.pagingInfop.pageSize.toString());
       this.http
-        .get(this.base_url + 'GetAlldepartments', { params: paramss })
+        .get(this.base_url + 'GetAllDepartmentStudents', { params: paramss })
         .subscribe(
-          (response: IResponseDepartment) => {
-            this.departments = response['departments'];
-            this.pagingInfop = response['pagingInfo'];
-            if (this.pagingInfop.totalPages < this.pagingInfop.currentPages) {
-              paramss.set('PageNumber', this.pagingInfop.totalPages.toString());
-              this.router.navigate([], {
-                relativeTo: this.route,
-                queryParams: {
-                  PageNumber: this.pagingInfop.totalPages,
-                  PageSize: this.pagingInfop.pageSize,
-                },
-              });
-            }
+          (response: IResponseStundet) => {
+            console.log(response)
           },
           (error) => {
             console.log(error);
@@ -121,7 +97,7 @@ export class AdminPanelDepartmentsComponent implements OnInit {
       .subscribe({
         next: (data) => {
           console.log('Delete successful');
-          this.GetallDepartments();
+          this.s();
         },
         error: (error) => {
           console.log('There was an error!', error);
@@ -179,7 +155,7 @@ export class AdminPanelDepartmentsComponent implements OnInit {
       .subscribe(
         (response) => {
           this.toastr.success('Department has successfully Edited', 'Edited');
-          this.GetallDepartments();
+          this.s();
         },
         (error) => {
           this.toastr.error(error.error, 'Error');

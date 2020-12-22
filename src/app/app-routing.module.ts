@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AdminPanelCoursesComponent } from './admin-panel-courses/admin-panel-courses.component';
 import { AdminPanelDepartmentsComponent } from './admin-panel-departments/admin-panel-departments.component';
+import { AdminPanelStudentsComponent } from './admin-panel-students/admin-panel-students.component';
+import { AdminPanelTeachersComponent } from './admin-panel-teachers/admin-panel-teachers.component';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import { ContainerComponent } from './container/container.component';
 import { HomeComponent } from './home/home.component';
@@ -28,10 +31,11 @@ const routes: Routes = [
     component: AdminPanelComponent,
     children: [
       { path: 'Departments', component: AdminPanelDepartmentsComponent },
-      { path: '**', redirectTo: '' },
+      { path: 'Students', component: AdminPanelStudentsComponent },
+      { path: 'Courses', component: AdminPanelCoursesComponent },
+      { path: 'Teachers', component: AdminPanelTeachersComponent },
     ],
   },
-  { path: '**', redirectTo: '404-error' },
 ];
 
 @NgModule({

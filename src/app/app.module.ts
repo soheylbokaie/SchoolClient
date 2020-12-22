@@ -21,6 +21,13 @@ import { ContainerComponent } from './container/container.component';
 import { AdminheaderComponent } from './adminheader/adminheader.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AdminPanelDepartmentsComponent } from './admin-panel-departments/admin-panel-departments.component';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { EditFComponent } from './edit-f/edit-f.component';
+import { AdminPanelStudentsComponent } from './admin-panel-students/admin-panel-students.component';
+import { AdminPanelTeachersComponent } from './admin-panel-teachers/admin-panel-teachers.component';
+import { AdminPanelCoursesComponent } from './admin-panel-courses/admin-panel-courses.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +45,11 @@ import { AdminPanelDepartmentsComponent } from './admin-panel-departments/admin-
     ContainerComponent,
     AdminheaderComponent,
     AdminPanelDepartmentsComponent,
-
+    EditFComponent,
+    AdminPanelStudentsComponent,
+    AdminPanelTeachersComponent,
+    AdminPanelCoursesComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,9 +60,10 @@ import { AdminPanelDepartmentsComponent } from './admin-panel-departments/admin-
     BrowserModule,
     HttpClientModule,
     FontAwesomeModule,
-
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

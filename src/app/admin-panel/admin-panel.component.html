@@ -306,9 +306,9 @@
                 aria-haspopup="true"
                 aria-expanded="false"
               >
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small"
-                  >Douglas McGee</span
-                >
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{
+                  name
+                }}</span>
                 <img class="img-profile rounded-circle" [src]="admin_image" />
               </a>
               <!-- Dropdown - User Information -->
@@ -401,7 +401,13 @@
           <button class="btn btn-secondary" type="button" data-dismiss="modal">
             Cancel
           </button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
+          <a
+            data-dismiss="modal"
+            class="btn btn-primary"
+            (click)="logout()"
+            [routerLink]="['../']"
+            >Logout</a
+          >
         </div>
       </div>
     </div>
