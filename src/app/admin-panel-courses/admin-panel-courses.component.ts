@@ -37,7 +37,7 @@ export class AdminPanelCoursesComponent implements OnInit {
   addForm: FormGroup;
   idtoken: string;
   ngOnInit(): void {
-    this.GetallDepartments();
+    this.GetallCourses();
     this.formAddInit();
     this.get_Authorize();
   }
@@ -99,7 +99,7 @@ export class AdminPanelCoursesComponent implements OnInit {
     }
   }
 
-  public GetallDepartments() {
+  public GetallCourses() {
     this.route.queryParams.subscribe((obj) => {
       this.pagingInfop = {
         currentPages: !!obj['PageNumber'] ? +obj['PageNumber'] : 1,

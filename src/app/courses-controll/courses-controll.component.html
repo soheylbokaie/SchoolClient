@@ -8,78 +8,168 @@
     <h6 class="m-0 font-weight-bold text-primary">Course Details</h6>
   </div>
   <div class="card-body">
-    <div class="row">
-      <label for="staticEmail" class="col-sm-2 col-form-label"
-        >Course Id :
-      </label>
-      <div class="col-sm-10">
-        <label type="text" readonly class="form-control-plaintext">{{
-          courseId
-        }}</label>
+    <ng-container *ngIf="!editmode">
+      <div class="row">
+        <label for="staticEmail" class="col-sm-2 col-form-label"
+          >Course Id :
+        </label>
+        <div class="col-sm-10">
+          <label type="text" readonly class="form-control-plaintext">{{
+            courseId
+          }}</label>
+        </div>
       </div>
-    </div>
-    <div class="row">
-      <label class="col-sm-2 col-form-label">Course Name : </label>
-      <div class="col-sm-10">
-        <label type="text" readonly class="form-control-plaintext">{{
-          course.courseName
-        }}</label>
+      <div class="row">
+        <label class="col-sm-2 col-form-label">Course Name : </label>
+        <div class="col-sm-10">
+          <label type="text" readonly class="form-control-plaintext">
+            {{ course?.courseName }}
+          </label>
+        </div>
       </div>
-    </div>
-    <div class="row">
-      <label class="col-sm-2 col-form-label">courseDescription : </label>
-    </div>
-    <div class="row">
-      <div class="col-sm-10">
-        <textarea
-          readonly
-          style="resize: none"
-          class="form-control-plaintext border text-dark"
-          value="{{ course.courseDescription }}"
-        ></textarea>
+      <div class="row">
+        <label class="col-sm-2 col-form-label">courseDescription : </label>
       </div>
-    </div>
-    <div class="row">
-      <label class="col-sm-2 col-form-label">Start Time : </label>
-      <div class="col-sm-10">
-        <label type="text" readonly class="form-control-plaintext">{{
-          course.startTime
-        }}</label>
+      <div class="row">
+        <div class="col-sm-10">
+          <textarea
+            readonly
+            style="resize: none"
+            class="form-control-plaintext border text-dark"
+            value="{{ course?.courseDescription }}"
+          ></textarea>
+        </div>
       </div>
-    </div>
-    <div class="row">
-      <label class="col-sm-2 col-form-label">End Time : </label>
-      <div class="col-sm-10">
-        <label type="text" readonly class="form-control-plaintext">{{
-          course.endTime
-        }}</label>
+      <div class="row">
+        <label class="col-sm-2 col-form-label">Start Time : </label>
+        <div class="col-sm-10">
+          <label type="text" readonly class="form-control-plaintext">{{
+            course?.startTime
+          }}</label>
+        </div>
       </div>
-    </div>
-    <div class="row">
-      <label class="col-sm-2 col-form-label">Day : </label>
-      <div class="col-sm-10">
-        <label type="text" readonly class="form-control-plaintext">{{
-          course.day
-        }}</label>
+      <div class="row">
+        <label class="col-sm-2 col-form-label">End Time : </label>
+        <div class="col-sm-10">
+          <label type="text" readonly class="form-control-plaintext">{{
+            course?.endTime
+          }}</label>
+        </div>
       </div>
-    </div>
-    <hr class="sidebar-divider" />
-    <div class="row">
-      <div class="col-sm-10">
-        <a
-          data-toggle="modal"
-          data-target="#deleteModal"
-          class="btn btn-danger btn-icon-split"
-        >
-          <span class="icon text-white-50">
-            <i class="fa fa-minus"></i>
-          </span>
-          <span class="text">Delete</span>
-        </a>
+      <div class="row">
+        <label class="col-sm-2 col-form-label">Day : </label>
+        <div class="col-sm-10">
+          <label type="text" readonly class="form-control-plaintext">{{
+            course?.day
+          }}</label>
+        </div>
       </div>
-    </div>
+      <hr class="sidebar-divider" />
+      <div class="row">
+        <div class="col-sm-10">
+          <a
+            data-toggle="modal"
+            data-target="#deleteModal"
+            class="btn btn-danger btn-icon-split mr-3"
+          >
+            <span class="icon text-white-50">
+              <i class="fa fa-minus"></i>
+            </span>
+            <span class="text">Delete</span>
+          </a>
+          <a (click)="editmode = !editmode" class="btn btn-info btn-icon-split">
+            <span class="icon text-white-50">
+              <i class="fa fa-edit"></i>
+            </span>
+            <span class="text">Edit</span>
+          </a>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="editmode">
+      <form (ngSubmit)="editCourse()" [formGroup]="editForm">
+        <div class="row">
+          <div class="col">
+            <input
+              type="text"
+              formControlName="courseName"
+              [class.is-invalid]="
+                editForm.get('courseName').errors &&
+                editForm.get('courseName').touched
+              "
+              class="form-control"
+              placeholder="Course Name"
+            />
+          </div>
+          <div class="col">
+            <input
+              type="text"
+              formControlName="courseDescription"
+              [class.is-invalid]="
+                editForm.get('courseDescription').errors &&
+                editForm.get('courseDescription').touched
+              "
+              class="form-control"
+              placeholder="Description"
+            />
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col">
+            <label for="Start-Date">Start Date:</label>
+            <input
+              formControlName="startDate"
+              [class.is-invalid]="
+                editForm.get('startDate').errors &&
+                editForm.get('startDate').touched
+              "
+              type="date"
+              class="form-control"
+              name="Start-Date"
+            />
+          </div>
+          <div class="col">
+            <label for="Start-Time">End Date:</label>
+            <input
+              formControlName="endDate"
+              [class.is-invalid]="
+                editForm.get('endDate').errors &&
+                editForm.get('endDate').touched
+              "
+              type="date"
+              class="form-control"
+              name="Start-Time"
+            />
+          </div>
+        </div>
+
+        <div class="row mt-4">
+          <div class="col">
+            <button
+              type="submit"
+              [disabled]="editForm.status == 'INVALID'"
+              class="btn btn-success"
+            >
+              change
+            </button>
+          </div>
+          <div class="col">
+            <button
+              type="button"
+              class="btn btn-danger"
+              (click)="editmode = !editmode"
+            >
+              cancle
+            </button>
+          </div>
+        </div>
+      </form>
+    </ng-container>
   </div>
 </div>
+
 <!-- delete modal -->
 <div
   class="modal fade"

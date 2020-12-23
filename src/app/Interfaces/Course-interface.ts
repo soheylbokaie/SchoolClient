@@ -54,3 +54,11 @@ export interface IEditTimeTable {
 export interface IDeleteTimeTable {
   TimeTableId: number;
 }
+
+export interface ICourseView {
+  courseDescription: string;
+  courseName: string;
+  day: string;
+  endTime: string;
+  startTime: string;
+}
