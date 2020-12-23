@@ -29,6 +29,8 @@ import { AdminPanelTeachersComponent } from './admin-panel-teachers/admin-panel-
 import { AdminPanelCoursesComponent } from './admin-panel-courses/admin-panel-courses.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { CoursesControllComponent } from './courses-controll/courses-controll.component';
+import { StudentControllComponent } from './student-controll/student-controll.component';
+import { TeacherControllComponent } from './teacher-controll/teacher-controll.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +54,8 @@ import { CoursesControllComponent } from './courses-controll/courses-controll.co
     AdminPanelCoursesComponent,
     UserProfileComponent,
     CoursesControllComponent,
+    StudentControllComponent,
+    TeacherControllComponent,
   ],
   imports: [
     BrowserModule,
