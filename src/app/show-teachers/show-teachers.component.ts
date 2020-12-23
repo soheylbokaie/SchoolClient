@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Route } from '@angular/compiler/src/core';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { HttpService } from '../http.service';
 import { ITeacherView } from '../Interfaces/app-interface';
 import { UserService } from '../user.service';
 
@@ -11,8 +12,12 @@ import { UserService } from '../user.service';
   styleUrls: ['./show-teachers.component.css'],
 })
 export class ShowTeachersComponent implements OnInit {
-  constructor(private http: HttpClient, private route: ActivatedRoute) {}
-  base_url = 'https://localhost:44311/';
+  constructor(
+    private http: HttpClient,
+    private route: ActivatedRoute,
+    private httpService: HttpService
+  ) {}
+  base_url = this.httpService.base_url;
   teachers: Array<ITeacherView>;
   departmentId: string;
   ngOnInit(): void {

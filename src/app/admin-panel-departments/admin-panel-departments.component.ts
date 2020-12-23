@@ -40,7 +40,8 @@ export class AdminPanelDepartmentsComponent implements OnInit {
     private route: ActivatedRoute,
     private userService: UserService,
     private toastr: ToastrService,
-    private router: Router
+    private router: Router,
+    private httpService: HttpService
   ) {}
   @ViewChild('edit_name') edit_name: ElementRef;
   addForm: FormGroup;
@@ -52,7 +53,7 @@ export class AdminPanelDepartmentsComponent implements OnInit {
   editMode: boolean = false;
   editElement: number = null;
 
-  base_url = 'https://localhost:44311/';
+  base_url = this.httpService.base_url;
   ngOnInit(): void {
     this.GetallDepartments();
     this.formAddInit();
@@ -125,7 +126,7 @@ export class AdminPanelDepartmentsComponent implements OnInit {
         },
         error: (error) => {
           console.log('There was an error!', error);
-          this.toastr.error("There is Teachers in this Department","error")
+          this.toastr.error('There is Teachers in this Department', 'error');
         },
       });
   }

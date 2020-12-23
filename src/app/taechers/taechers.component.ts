@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { HttpService } from '../http.service';
 import { ITeacherView } from '../Interfaces/app-interface';
 import { IDepartment } from '../Interfaces/Department-interface';
 
@@ -9,9 +10,9 @@ import { IDepartment } from '../Interfaces/Department-interface';
   styleUrls: ['./taechers.component.css'],
 })
 export class TaechersComponent implements OnInit {
-  base_url = 'https://localhost:44311/';
+  base_url = this.httpService.base_url;
   departments: IDepartment;
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private httpService: HttpService) {}
   ngOnInit(): void {
     this.get_Teachers();
   }

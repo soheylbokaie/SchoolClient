@@ -3,6 +3,7 @@ import { Component, ElementRef, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { HttpService } from '../http.service';
 import {
   IAddCourse,
   ICourse,
@@ -25,10 +26,11 @@ export class AdminPanelCoursesComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private userService: UserService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private httpService: HttpService
   ) {}
 
-  base_url = 'https://localhost:44311/';
+  base_url = this.httpService.base_url;
   pagingInfop: IPaging;
   courses: ICourse[];
   mode: boolean = false;

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { HttpService } from '../http.service';
 import { ITeacherView, IUSer } from '../Interfaces/app-interface';
 import { TokenService } from '../token.service';
 import { UserService } from '../user.service';
@@ -17,9 +18,10 @@ export class UserProfileComponent implements OnInit {
   constructor(
     private tokenService: TokenService,
     private userService: UserService,
-    private http: HttpClient
+    private http: HttpClient,
+    private httpService: HttpService
   ) {}
-  base_url = 'https://localhost:44311/';
+  base_url = this.httpService.base_url;
   currentUser$: Observable<IUSer>;
   name: string;
   role: string;

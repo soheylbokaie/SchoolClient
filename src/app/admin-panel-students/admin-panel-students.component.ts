@@ -3,6 +3,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { HttpService } from '../http.service';
 import {
   IAddDepartment,
   IDepartment,
@@ -26,7 +27,8 @@ export class AdminPanelStudentsComponent implements OnInit {
     private http: HttpClient,
     private route: ActivatedRoute,
     private userService: UserService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private httpService: HttpService
   ) {}
   @ViewChild('edit_name') edit_name: ElementRef;
   addForm: FormGroup;
@@ -38,7 +40,7 @@ export class AdminPanelStudentsComponent implements OnInit {
   editMode: boolean = false;
   editElement: number = null;
 
-  base_url = 'https://localhost:44311/';
+  base_url = this.httpService.base_url;
   ngOnInit(): void {
     this.s();
     this.formAddInit();
@@ -63,7 +65,7 @@ export class AdminPanelStudentsComponent implements OnInit {
         .get(this.base_url + 'GetAllDepartmentStudents', { params: paramss })
         .subscribe(
           (response: IResponseStundet) => {
-            console.log(response)
+            console.log(response);
           },
           (error) => {
             console.log(error);

@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 })
 export class HttpService {
   constructor() {}
-  base_url = 'https://localhost:44311/';
+  base_url = 'https://localhost:5001/';
   departments: string[];
 
   public get_url_no_params(api_link: string) {

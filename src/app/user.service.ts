@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import jwtDecode from 'jwt-decode';
 import { ReplaySubject } from 'rxjs';
+import { HttpService } from './http.service';
 import { ILoginResp, IUSer, IUserLogin } from './Interfaces/app-interface';
 import { TokenService } from './token.service';
 
@@ -10,7 +11,6 @@ import { TokenService } from './token.service';
   providedIn: 'root',
 })
 export class UserService {
-  base_url = 'https://localhost:44311/';
   private Token = new ReplaySubject<ILoginResp>(1);
   private currentUserSource = new ReplaySubject<IUSer>(1);
   currentToken$ = this.Token.asObservable();
@@ -20,8 +20,10 @@ export class UserService {
     private http: HttpClient,
     private tokenService: TokenService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private httpService: HttpService
   ) {}
+  base_url = this.httpService.base_url;
 
   public login(model: IUserLogin) {
     return this.http
@@ -35,7 +37,7 @@ export class UserService {
 
   setCurrentUser(resp: ILoginResp) {
     this.Token.next(resp);
-     this.currentUserSource.next(this.tokenService.toUser(resp));
+    this.currentUserSource.next(this.tokenService.toUser(resp));
   }
 
   logout() {
@@ -54,6 +56,5 @@ export class UserService {
         console.log('token has expired');
       }
     });
-
   }
 }
