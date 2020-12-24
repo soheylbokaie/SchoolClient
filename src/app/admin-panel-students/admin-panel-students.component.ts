@@ -2,15 +2,19 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { faGlobe, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
 import { HttpService } from '../http.service';
-import { IAddCourse, ICourse, IResponseCourse } from '../Interfaces/Course-interface';
 import {
-  IAddDepartment,
+  IAddCourse,
+  ICourse,
+  IResponseCourse,
+} from '../Interfaces/Course-interface';
+import {
   IDepartment,
-  IEditDepartment,
   IResponseDepartment,
 } from '../Interfaces/Department-interface';
+
 import { IPaging } from '../Interfaces/paging-interface';
 import { IResponseStundet, IStudent } from '../Interfaces/Students-interface';
 import { UserService } from '../user.service';
@@ -32,31 +36,18 @@ export class AdminPanelStudentsComponent implements OnInit {
     private toastr: ToastrService,
     private httpService: HttpService
   ) {}
-
   base_url = this.httpService.base_url;
   pagingInfop: IPaging;
   courses: ICourse[];
   mode: boolean = false;
   addForm: FormGroup;
   idtoken: string;
-  ngOnInit(): void {
-    this.GetallCourses();
-    this.formAddInit();
-    this.get_Authorize();
-  }
+  icon: IconDefinition;
+  departments: IDepartment[];
 
-  formAddInit() {
-    this.addForm = new FormGroup({
-      courseName: new FormControl('', [Validators.required]),
-      courseDescription: new FormControl('', [Validators.required]),
-      courseCredit: new FormControl('', [Validators.required]),
-      day: new FormControl('', [Validators.required]),
-      departmentId: new FormControl('', [Validators.required]),
-      startDate: new FormControl('', [Validators.required]),
-      endDate: new FormControl('', [Validators.required]),
-      startTime: new FormControl('', [Validators.required]),
-      endTime: new FormControl('', [Validators.required]),
-    });
+  ngOnInit(): void {
+    this.GetallDepartments();
+    this.get_Authorize();
   }
   get_Authorize() {
     this.userService.currentToken$.subscribe((res) => {
@@ -64,45 +55,7 @@ export class AdminPanelStudentsComponent implements OnInit {
     });
   }
 
-  add_item() {
-    const temp: IAddCourse = {
-      courseName: this.addForm.get('courseName').value,
-      courseDescription: this.addForm.get('courseDescription').value,
-      courseCredit: this.addForm.get('courseCredit').value,
-      day: this.addForm.get('day').value,
-      departmentId: this.addForm.get('departmentId').value,
-      startDate: this.addForm.get('startDate').value,
-      endDate: this.addForm.get('endDate').value,
-      startTime: this.addForm.get('startTime').value,
-      endTime: this.addForm.get('endTime').value,
-    };
-    temp.startTime = temp.startDate + 'T' + temp.startTime + ':42.346Z';
-    temp.endTime = temp.endDate + 'T' + temp.endTime + ':42.346Z';
-    console.log(JSON.stringify(temp));
-    if (this.addForm.hasError) {
-      this.http
-        .post(this.base_url + 'AddCourse', temp, {
-          headers: { Authorization: 'Bearer ' + this.idtoken },
-        })
-        .subscribe(
-          (response) => {
-            console.log(response);
-            this.mode = false;
-            this.addForm.reset();
-            this.toastr.success('Course has successfully added', 'added');
-          },
-          (error) => {
-            this.toastr.error(error.error, 'Error');
-            console.log(error.error);
-          }
-        );
-    } else {
-      console.log(this.addForm.errors);
-      this.toastr.error('form is not valid', 'Error');
-    }
-  }
-
-  public GetallCourses() {
+  public GetallDepartments() {
     this.route.queryParams.subscribe((obj) => {
       this.pagingInfop = {
         currentPages: !!obj['PageNumber'] ? +obj['PageNumber'] : 1,
@@ -116,10 +69,10 @@ export class AdminPanelStudentsComponent implements OnInit {
         .set('PageNumber', this.pagingInfop.currentPages.toString())
         .set('PageSize', this.pagingInfop.pageSize.toString());
       this.http
-        .get(this.base_url + 'GetAllCourses', { params: paramss })
+        .get(this.base_url + 'GetAlldepartments', { params: paramss })
         .subscribe(
-          (response: IResponseCourse) => {
-            this.courses = response['courses'];
+          (response: IResponseDepartment) => {
+            this.departments = response['departments'];
             this.pagingInfop = response['pagingInfo'];
             if (this.pagingInfop.totalPages < this.pagingInfop.currentPages) {
               paramss.set('PageNumber', this.pagingInfop.totalPages.toString());
