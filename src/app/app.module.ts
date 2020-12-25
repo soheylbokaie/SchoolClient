@@ -31,6 +31,8 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { CoursesControllComponent } from './courses-controll/courses-controll.component';
 import { StudentControllComponent } from './student-controll/student-controll.component';
 import { TeacherControllComponent } from './teacher-controll/teacher-controll.component';
+import {NgxPaginationModule} from 'ngx-pagination';
+import { PagingDirective } from './paging.directive';
 
 @NgModule({
   declarations: [
@@ -56,6 +58,7 @@ import { TeacherControllComponent } from './teacher-controll/teacher-controll.co
     CoursesControllComponent,
     StudentControllComponent,
     TeacherControllComponent,
+    PagingDirective,
   ],
   imports: [
     BrowserModule,
@@ -68,6 +71,7 @@ import { TeacherControllComponent } from './teacher-controll/teacher-controll.co
     FontAwesomeModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
+    NgxPaginationModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

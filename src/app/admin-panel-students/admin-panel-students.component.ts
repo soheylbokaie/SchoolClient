@@ -16,7 +16,6 @@ import {
 } from '../Interfaces/Department-interface';
 
 import { IPaging } from '../Interfaces/paging-interface';
-import { IResponseStundet, IStudent } from '../Interfaces/Students-interface';
 import { UserService } from '../user.service';
 
 @Component({
