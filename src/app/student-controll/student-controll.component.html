@@ -40,26 +40,7 @@
           <div class="row">
             <div class="col-sm-12 col-md-6">
               <div class="dataTables_length" id="dataTable_length">
-                <label
-                  >Show
-                  <select
-                    #myselect
-                    [value]="pagingInfop.pageSize"
-                    (change)="
-                      pagingInfop.pageSize = myselect.value;
-                      counter(pagingInfop.currentPages);
-                    "
-                    [routerLink]="[]"
-                    name="dataTable_length"
-                    aria-controls="dataTable"
-                    class="custom-select custom-select-sm form-control form-control-sm"
-                  >
-                    <option value="5">5</option>
-                    <option value="10">10</option>
-                    <option value="20">20</option>
-                    <option value="30">30</option>
-                  </select>
-                </label>
+
               </div>
             </div>
           </div>
@@ -104,7 +85,7 @@
 
                     <td colspan="1">
                       <button
-                        [routerLink]="['/admin-panel/Courses', student.id]"
+                        [routerLink]="['/admin-panel/Students/detail', student.id]"
                         class="btn btn-success mr-1"
                       >
                         <i class="fa fa-sign-in"></i>
@@ -124,7 +105,7 @@
               >
                 <pagination-controls
                   id="listing_pagination"
-                  maxSize="pagingInfop.pageSize"
+                  maxSize="5"
                   directionLinks="true"
                   (pageChange)="page = $event"
                 ></pagination-controls>

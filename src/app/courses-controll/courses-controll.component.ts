@@ -104,6 +104,6 @@ export class CoursesControllComponent implements OnInit {
   }
 
   back() {
-    this.location.back();
+    this.httpService.back();
   }
 }

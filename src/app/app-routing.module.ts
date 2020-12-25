@@ -13,6 +13,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { RegisterComponent } from './register/register.component';
 import { ShowTeachersComponent } from './show-teachers/show-teachers.component';
 import { StudentControllComponent } from './student-controll/student-controll.component';
+import { StudentDetailsComponent } from './student-details/student-details.component';
 import { TaechersComponent } from './taechers/taechers.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 
@@ -36,6 +37,10 @@ const routes: Routes = [
       { path: 'Departments', component: AdminPanelDepartmentsComponent },
       { path: 'Students', component: AdminPanelStudentsComponent },
       { path: 'Students/:depid', component: StudentControllComponent },
+      {
+        path: 'Students/detail/:studentid',
+        component: StudentDetailsComponent,
+      },
       { path: 'Courses', component: AdminPanelCoursesComponent },
       { path: 'Courses/:id', component: CoursesControllComponent },
       { path: 'Teachers', component: AdminPanelTeachersComponent },

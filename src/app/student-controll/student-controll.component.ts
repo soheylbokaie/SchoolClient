@@ -144,25 +144,6 @@ export class StudentControllComponent implements OnInit {
     });
   }
 
-  counter(i: number) {
-    let list = [];
-    if (i - 3 > 0) {
-      list.push('..');
-    }
-    for (let index = i - 2; index <= i; index++) {
-      if (index > 0) list.push(index);
-    }
-    for (let index = i + 1; index < i + 3; index++) {
-      if (index <= this.pagingInfop.totalPages) list.push(index);
-    }
-    if (i + 2 < this.pagingInfop.totalPages) {
-      list.push('..');
-    }
-    return list;
-  }
-  boraz(s) {
-    console.log(s);
-  }
 
   delete_item() {
     console.log(this.deleteID);
