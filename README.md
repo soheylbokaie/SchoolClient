@@ -1,6 +1,6 @@
 # SchoolClient
 
-for Installing node_models packages run npm i
+for Installing node_models packages run `npm i`
 
 ## Development server
 
