@@ -49,7 +49,7 @@ export class TeacherControllComponent implements OnInit {
 
   formAddInit() {
     this.addForm = new FormGroup({
-      username: new FormControl('', [Validators.required]),
+      userName: new FormControl('', [Validators.required]),
       password: new FormControl('', [
         Validators.required,
         Validators.minLength(8),
@@ -64,7 +64,7 @@ export class TeacherControllComponent implements OnInit {
         MyValidators.ConfirmCheck,
       ]),
       email: new FormControl('', [Validators.required, Validators.email]),
-      studentName: new FormControl('', [Validators.required]),
+      teacherName: new FormControl('', [Validators.required]),
     });
   }
   get_Authorize() {
@@ -76,7 +76,7 @@ export class TeacherControllComponent implements OnInit {
   add_item() {
     const temp: ITeacherReg = {
       teacherName: this.addForm.get('teacherName').value,
-      userName: this.addForm.get('username').value,
+      userName: this.addForm.get('userName').value,
       email: this.addForm.get('email').value,
       password: this.addForm.get('password').value,
       departmentId: +this.depid,
@@ -89,7 +89,6 @@ export class TeacherControllComponent implements OnInit {
         })
         .subscribe(
           (response) => {
-            console.log(response);
             this.mode = false;
             this.addForm.reset();
             this.toastr.success('Student has successfully added', 'added');
@@ -119,27 +118,16 @@ export class TeacherControllComponent implements OnInit {
         // .set('PageNumber', this.pagingInfop.currentPages.toString())
         // .set('PageSize', this.pagingInfop.pageSize.toString())
         .set('DepartmentId', this.depid);
+      console.log(this.depid);
       this.http
         .get(this.base_url + 'GetAllDepartmentTeachers', { params: paramss })
         .subscribe(
           (response: ITeacherView[]) => {
             this.teachers = response;
             this.count = this.teachers.length;
-
-            // this.pagingInfop = response['pagingInfo'];
-            // if (this.pagingInfop.totalPages < this.pagingInfop.currentPages) {
-            //   paramss.set('PageNumber', this.pagingInfop.totalPages.toString());
-            //   this.router.navigate([], {
-            //     relativeTo: this.route,
-            //     queryParams: {
-            //       PageNumber: this.pagingInfop.totalPages,
-            //       PageSize: this.pagingInfop.pageSize,
-            //     },
-            //   });
-            // }
           },
           (error) => {
-            console.log(error);
+            this.toastr.error(error.error, 'error');
           }
         );
     });
