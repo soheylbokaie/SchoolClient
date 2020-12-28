@@ -4,7 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { HttpService } from '../http.service';
-import { ITeacherView } from '../Interfaces/app-interface';
+import { ITeacherEdit, ITeacherView } from '../Interfaces/app-interface';
 import { ICourse, IResponseCourse } from '../Interfaces/Course-interface';
 import { IPaging } from '../Interfaces/paging-interface';
 import {
@@ -37,7 +37,8 @@ export class TeacherDetailsComponent implements OnInit {
   courses: ICourse[];
   allcourses: ICourse[];
   available_courses: ICourse[] = [];
-  mode: boolean;
+  mode: boolean = false;
+  editForm: FormGroup;
   deleteitem: string;
   addcoursemode: boolean = false;
   addform: FormGroup;
@@ -45,8 +46,8 @@ export class TeacherDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.set_teacher(this.route.snapshot.params['teacherid']);
     this.get_Authorize();
-    this.get_student_detail();
-    this.get_student_courses();
+    this.get_teacher_detail();
+    this.get_teacher_courses();
     this.get_all_courses();
     this.formAddInit();
   }
@@ -60,22 +61,25 @@ export class TeacherDetailsComponent implements OnInit {
     id: string,
     email: string = null,
     teacherName: string = null,
-    dep = null
+    dep: string = null,
+    userName: string = null
   ) {
     this.teacher = {
       teacherName: teacherName,
       email: email,
       teacherId: id,
       departmentName: dep,
+      userName: userName,
     };
   }
-  get_student_detail() {
+  get_teacher_detail() {
     this.http
       .get(
         this.httpService.base_url + 'api/getTeacher/' + this.teacher.teacherId
       )
       .subscribe((response: ITeacherView) => {
         this.teacher = response;
+        this.editforminit();
       });
   }
   get_all_courses() {
@@ -111,7 +115,7 @@ export class TeacherDetailsComponent implements OnInit {
       );
   }
 
-  get_student_courses() {
+  get_teacher_courses() {
     this.http
       .get(
         this.httpService.base_url +
@@ -136,7 +140,7 @@ export class TeacherDetailsComponent implements OnInit {
       .subscribe(
         (response: string) => {
           this.toaster.success('course has successfully droped!', 'droped');
-          this.get_student_courses();
+          this.get_teacher_courses();
         },
         (error) => {
           this.toaster.error(error.error, 'error');
@@ -161,7 +165,7 @@ export class TeacherDetailsComponent implements OnInit {
       .subscribe(
         (response) => {
           this.toaster.success('course has successfully aded', 'added!');
-          this.get_student_courses();
+          this.get_teacher_courses();
         },
         (error) => {
           if (error.error == 'Has Clash') {
@@ -191,5 +195,27 @@ export class TeacherDetailsComponent implements OnInit {
       list.push('..');
     }
     return list;
+  }
+
+  editTeacher() {
+    const teacher: ITeacherEdit = {
+      teacherName: this.editForm.get('teacherName').value,
+    };
+    const paramss = new HttpParams().set('userId', this.teacher.teacherId);
+    this.http
+      .put(this.httpService.base_url + 'api/UpdateTeacher', teacher, {
+        params: paramss,
+        headers: { Authorization: 'Bearer ' + this.idtoken },
+      })
+      .subscribe((response) => {
+        console.log(response);
+      });
+  }
+  editforminit() {
+    this.editForm = new FormGroup({
+      teacherName: new FormControl(this.teacher.teacherName, [
+        Validators.required,
+      ]),
+    });
   }
 }

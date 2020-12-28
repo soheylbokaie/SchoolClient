@@ -12,11 +12,46 @@
       <div class="row">
         <label class="col-sm-2 col-form-label">Teacher Name : </label>
         <div class="col-sm-10">
-          <label type="text" readonly class="form-control-plaintext"
+          <label
+            *ngIf="!mode"
+            type="text"
+            readonly
+            class="form-control-plaintext"
             >{{ teacher.teacherName }}
           </label>
+          <ng-container *ngIf="mode">
+            <form
+              class="form-inline"
+              (ngSubmit)="editTeacher()"
+              [formGroup]="editForm"
+            >
+              <input
+                type="text"
+                class="form-control mb-2 mr-sm-2"
+                id="inlineFormInputName2"
+                formControlName="teacherName"
+                [class.is-invalid]="
+                  editForm.get('teacherName').errors &&
+                  editForm.get('teacherName').touched
+                "
+                [value]="teacher?.teacherName"
+              />
+              <div class="form-check mb-2 mr-sm-2"></div>
+
+              <button
+                type="submit"
+                (click)="mode = !mode"
+                class="btn btn-outline-success mb-2"
+              >
+                <i class="fa fa-check"></i>
+              </button>
+            </form>
+          </ng-container>
         </div>
       </div>
+      <!--  -->
+
+      <!--  -->
       <div class="row">
         <label class="col-auto col-form-label">Department Name : </label>
         <div class="col-auto">
@@ -25,11 +60,27 @@
           </label>
         </div>
       </div>
+      <div class="row">
+        <label class="col-auto col-form-label">email: </label>
+        <div class="col-auto">
+          <label type="text" readonly class="form-control-plaintext"
+            >{{ teacher.email }}
+          </label>
+        </div>
+      </div>
+      <div class="row">
+        <label class="col-auto col-form-label">username : </label>
+        <div class="col-auto">
+          <label type="text" readonly class="form-control-plaintext"
+            >{{ teacher.userName }}
+          </label>
+        </div>
+      </div>
 
       <hr class="sidebar-divider" />
       <div class="row">
         <div class="col-auto">
-          <a class="btn btn-info btn-icon-split">
+          <a (click)="mode = !mode" class="btn btn-info btn-icon-split">
             <span class="icon text-white-50">
               <i class="fa fa-edit"></i>
             </span>

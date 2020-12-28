@@ -11,6 +11,10 @@ export interface ITeacherView {
   email: string;
   teacherId: string;
   departmentName: string;
+  userName: string;
+}
+export interface ITeacherEdit {
+  teacherName: string;
 }
 
 export interface IUserLogin {
