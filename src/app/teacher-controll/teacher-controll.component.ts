@@ -96,11 +96,9 @@ export class TeacherControllComponent implements OnInit {
           },
           (error) => {
             this.toastr.error(error.error, 'Error');
-            console.log(error);
           }
         );
     } else {
-      console.log(this.addForm.errors);
       this.toastr.error('form is not valid', 'Error');
     }
   }
@@ -114,11 +112,7 @@ export class TeacherControllComponent implements OnInit {
         totalCount: 0,
         totalPages: 0,
       };
-      const paramss = new HttpParams()
-        // .set('PageNumber', this.pagingInfop.currentPages.toString())
-        // .set('PageSize', this.pagingInfop.pageSize.toString())
-        .set('DepartmentId', this.depid);
-      console.log(this.depid);
+      const paramss = new HttpParams().set('DepartmentId', this.depid);
       this.http
         .get(this.base_url + 'GetAllDepartmentTeachers', { params: paramss })
         .subscribe(

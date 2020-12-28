@@ -4,30 +4,25 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { HttpService } from '../http.service';
-import {
-  IAddCourse,
-  IAddCourseToTimeTable,
-  ICourse,
-  IResponseCourse,
-} from '../Interfaces/Course-interface';
+import { ITeacherView } from '../Interfaces/app-interface';
+import { ICourse, IResponseCourse } from '../Interfaces/Course-interface';
 import { IPaging } from '../Interfaces/paging-interface';
 import {
   IAddCourseStudent,
-  IStudentReg,
   IStudentView,
 } from '../Interfaces/Student-interface';
 import { TokenService } from '../token.service';
 import { UserService } from '../user.service';
 
 @Component({
-  selector: 'app-student-details',
-  templateUrl: './student-details.component.html',
+  selector: 'app-teacher-details',
+  templateUrl: './teacher-details.component.html',
   styleUrls: [
-    './student-details.component.css',
+    './teacher-details.component.css',
     '../admin-panel/sb-admin-2.min.css',
   ],
 })
-export class StudentDetailsComponent implements OnInit {
+export class TeacherDetailsComponent implements OnInit {
   constructor(
     private httpService: HttpService,
     private http: HttpClient,
@@ -37,7 +32,7 @@ export class StudentDetailsComponent implements OnInit {
     private toaster: ToastrService
   ) {}
   page = 1;
-  student: IStudentView;
+  teacher: ITeacherView;
   idtoken: string;
   courses: ICourse[];
   allcourses: ICourse[];
@@ -48,7 +43,7 @@ export class StudentDetailsComponent implements OnInit {
   addform: FormGroup;
   pagingInfop: IPaging;
   ngOnInit(): void {
-    this.set_student(this.route.snapshot.params['studentid']);
+    this.set_teacher(this.route.snapshot.params['teacherid']);
     this.get_Authorize();
     this.get_student_detail();
     this.get_student_courses();
@@ -56,28 +51,31 @@ export class StudentDetailsComponent implements OnInit {
     this.formAddInit();
   }
 
-
   get_Authorize() {
     this.userService.currentToken$.subscribe((res) => {
       this.idtoken = res.token;
     });
   }
-  set_student(
+  set_teacher(
     id: string,
-    studentname: string = null,
-    departmentname: string = null
+    email: string = null,
+    teacherName: string = null,
+    dep = null
   ) {
-    this.student = {
-      id: id,
-      studentName: studentname,
-      departmentName: departmentname,
+    this.teacher = {
+      teacherName: teacherName,
+      email: email,
+      teacherId: id,
+      departmentName: dep,
     };
   }
   get_student_detail() {
     this.http
-      .get(this.httpService.base_url + 'api/getStudent/' + this.student.id)
-      .subscribe((response: IStudentView) => {
-        this.student = response;
+      .get(
+        this.httpService.base_url + 'api/getTeacher/' + this.teacher.teacherId
+      )
+      .subscribe((response: ITeacherView) => {
+        this.teacher = response;
       });
   }
   get_all_courses() {
@@ -101,7 +99,7 @@ export class StudentDetailsComponent implements OnInit {
           this.allcourses = response['courses'];
           this.pagingInfop = response['pagingInfo'];
           this.allcourses.forEach((element) => {
-            if (element.department == this.student.departmentName) {
+            if (element.department == this.teacher.departmentName) {
               this.available_courses.push(element);
             }
           });
@@ -115,18 +113,23 @@ export class StudentDetailsComponent implements OnInit {
 
   get_student_courses() {
     this.http
-      .get(this.httpService.base_url + 'StudentTimeTable/' + this.student.id, {
-        headers: { Authorization: 'Bearer ' + this.idtoken },
-      })
+      .get(
+        this.httpService.base_url +
+          'TeacherTimeTable/' +
+          this.teacher.teacherId,
+        {
+          headers: { Authorization: 'Bearer ' + this.idtoken },
+        }
+      )
       .subscribe((response: ICourse[]) => {
         this.courses = response;
+        console.log(response);
       });
   }
 
-
   drop_course(course_id: String) {
     this.http
-      .delete(this.httpService.base_url + 'DeleteStudentCourse/' + course_id, {
+      .delete(this.httpService.base_url + 'DeleteTeacherCourse/' + course_id, {
         headers: { Authorization: 'Bearer ' + this.idtoken },
         responseType: 'text',
       })
@@ -137,6 +140,7 @@ export class StudentDetailsComponent implements OnInit {
         },
         (error) => {
           this.toaster.error(error.error, 'error');
+          console.error(error);
         }
       );
   }
@@ -148,10 +152,10 @@ export class StudentDetailsComponent implements OnInit {
   add_course(coursecode: string) {
     const course: IAddCourseStudent = {
       courseId: coursecode,
-      userId: this.student.id,
+      userId: this.teacher.teacherId,
     };
     this.http
-      .post(this.httpService.base_url + 'api/Add/StudentCourse', course, {
+      .post(this.httpService.base_url + 'api/Add/TeacherCourse', course, {
         headers: { Authorization: 'Bearer ' + this.idtoken },
       })
       .subscribe(

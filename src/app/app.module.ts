@@ -34,6 +34,7 @@ import { TeacherControllComponent } from './teacher-controll/teacher-controll.co
 import {NgxPaginationModule} from 'ngx-pagination';
 import { PagingDirective } from './paging.directive';
 import { StudentDetailsComponent } from './student-details/student-details.component';
+import { TeacherDetailsComponent } from './teacher-details/teacher-details.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { StudentDetailsComponent } from './student-details/student-details.compo
     TeacherControllComponent,
     PagingDirective,
     StudentDetailsComponent,
+    TeacherDetailsComponent,
   ],
   imports: [
     BrowserModule,

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import jwtDecode from 'jwt-decode';
+import { ToastrService } from 'ngx-toastr';
 import { ReplaySubject } from 'rxjs';
 import { HttpService } from './http.service';
 import { ILoginResp, IUSer, IUserLogin } from './Interfaces/app-interface';
@@ -21,18 +22,26 @@ export class UserService {
     private tokenService: TokenService,
     private router: Router,
     private route: ActivatedRoute,
-    private httpService: HttpService
+    private httpService: HttpService,
+    private toaster: ToastrService
   ) {}
   base_url = this.httpService.base_url;
 
   public login(model: IUserLogin) {
-    return this.http
-      .post(this.base_url + 'api/login', model)
-      .subscribe((response: ILoginResp) => {
-        localStorage.setItem('user', JSON.stringify(response));
-        this.currentUserSource.next(this.tokenService.toUser(response));
-        this.Token.next(response);
-      });
+    return this.http.post(this.base_url + 'api/login', model).subscribe(
+      (response: ILoginResp) => {
+        if (response['success']) {
+          localStorage.setItem('user', JSON.stringify(response));
+          this.currentUserSource.next(this.tokenService.toUser(response));
+          this.Token.next(response);
+        } else {
+          this.toaster.error('username or password is not correct', 'invalid');
+        }
+      },
+      (error) => {
+        console.log(error.message);
+      }
+    );
   }
 
   setCurrentUser(resp: ILoginResp) {

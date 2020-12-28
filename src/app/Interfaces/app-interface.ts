@@ -9,9 +9,9 @@ export interface ITeacherReg {
 export interface ITeacherView {
   teacherName: string;
   email: string;
+  teacherId: string;
+  departmentName: string;
 }
-
-
 
 export interface IUserLogin {
   username: string;

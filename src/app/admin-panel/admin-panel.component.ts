@@ -19,7 +19,7 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.wink_icon = faLaughWink;
     this.userService.currentUser$.subscribe((resp) => {
-      this.name = resp.name;
+      this.name = resp?.name;
     });
   }
   logout() {

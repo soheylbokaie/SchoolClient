@@ -143,14 +143,12 @@ export class AdminPanelDepartmentsComponent implements OnInit {
         })
         .subscribe(
           (response) => {
-            console.log(response);
             this.mode = true;
             this.toastr.success('Department has successfully added', 'added');
             this.addForm.reset();
           },
           (error) => {
             this.toastr.error(error.error, 'Error');
-            // console.log(error.error)
           }
         );
     } else {
@@ -185,7 +183,6 @@ export class AdminPanelDepartmentsComponent implements OnInit {
         },
         (error) => {
           this.toastr.error(error.error, 'Error');
-          console.log(error.error);
         }
       );
   }

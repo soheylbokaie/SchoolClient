@@ -30,9 +30,9 @@ export class UserProfileComponent implements OnInit {
   ngOnInit(): void {
     this.currentUser$ = this.userService.currentUser$;
     this.currentUser$.subscribe((params) => {
-      this.name = params['name'];
-      this.role = params['role'];
-      this.id = params['id'];
+      this.name = params?.name;
+      this.role = params?.role;
+      this.id = params?.id;
     });
     if (this.role == 'Teacher') {
       this.getTeacher();

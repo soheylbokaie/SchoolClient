@@ -83,18 +83,15 @@ export class AdminPanelCoursesComponent implements OnInit {
         })
         .subscribe(
           (response) => {
-            console.log(response);
             this.mode = false;
             this.addForm.reset();
             this.toastr.success('Course has successfully added', 'added');
           },
           (error) => {
             this.toastr.error(error.error, 'Error');
-            console.log(error.error);
           }
         );
     } else {
-      console.log(this.addForm.errors);
       this.toastr.error('form is not valid', 'Error');
     }
   }

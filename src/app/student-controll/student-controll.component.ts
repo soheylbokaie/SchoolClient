@@ -88,7 +88,6 @@ export class StudentControllComponent implements OnInit {
         })
         .subscribe(
           (response) => {
-            console.log(response);
             this.mode = false;
             this.addForm.reset();
             this.toastr.success('Student has successfully added', 'added');
@@ -96,11 +95,9 @@ export class StudentControllComponent implements OnInit {
           },
           (error) => {
             this.toastr.error(error.error, 'Error');
-            console.log(error);
           }
         );
     } else {
-      console.log(this.addForm.errors);
       this.toastr.error('form is not valid', 'Error');
     }
   }
