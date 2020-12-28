@@ -36,8 +36,11 @@
             <span class="text">Edit</span>
           </a>
         </div>
-        <div class="col-auto">
-          <a class="btn btn-success btn-icon-split">
+        <div *ngIf="courses?.length < 6" class="col-auto">
+          <a
+            class="btn btn-success btn-icon-split"
+            (click)="addcoursemode = !addcoursemode"
+          >
             <span class="icon text-white-50">
               <i class="fa fa-edit"></i>
             </span>
@@ -123,70 +126,220 @@
     </ng-container> -->
   </div>
 </div>
+<ng-container *ngIf="courses?.length > 0 && !addcoursemode">
+  <div class="card shadow mb-4 border-bottom-info">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Student Courses</h6>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-sm-12">
+          <table
+            class="table table-bordered dataTable"
+            id="dataTable"
+            width="100%"
+            cellspacing="0"
+            role="grid"
+            aria-describedby="dataTable_info"
+            style="width: 100%"
+          >
+            <thead>
+              <tr class="text-center">
+                <th rowspan="1" colspan="1">Course Name</th>
+                <th rowspan="1" colspan="1">Course Description</th>
+                <th rowspan="1" colspan="1">Course day</th>
+                <th rowspan="1" colspan="1">Course start time</th>
+                <th rowspan="1" colspan="1">Course end time</th>
+                <th rowspan="1" colspan="1"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                role="row"
+                class="odd text-center"
+                *ngFor="let course of courses"
+              >
+                <td class="justify-content-center text-center">
+                  {{ course.courseName }}
+                </td>
 
-<div class="card shadow mb-4 border-bottom-info">
-  <div class="card-header py-3">
-    <h6 class="m-0 font-weight-bold text-primary">Student Courses</h6>
-  </div>
-  <div class="card-body">
-    <div class="row">
-      <div class="col-sm-12">
-        <table
-          class="table table-bordered dataTable"
-          id="dataTable"
-          width="100%"
-          cellspacing="0"
-          role="grid"
-          aria-describedby="dataTable_info"
-          style="width: 100%"
-        >
-          <thead>
-            <tr class="text-center">
-              <th rowspan="1" colspan="1">Course Name</th>
-              <th rowspan="1" colspan="1">Course Description</th>
-              <th rowspan="1" colspan="1">Course day</th>
-              <th rowspan="1" colspan="1">Course start time</th>
-              <th rowspan="1" colspan="1">Course end time</th>
-              <th rowspan="1" colspan="1"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr
-              role="row"
-              class="odd text-center"
-              *ngFor="let course of courses"
-            >
-              <td class="justify-content-center text-center">
-                {{ course.courseName }}
-              </td>
-
-              <td colspan="1">{{ course.courseDescription }}</td>
-              <td colspan="1">{{ course.day }}</td>
-              <td colspan="1">{{ course.startTime }}</td>
-              <td colspan="1">{{ course.endTime }}</td>
-              <td colspan="1">
-                <a
-                  data-toggle="modal"
-                  data-target="#deleteModal"
-                  class="btn btn-danger mr-1"
-                  (click)="deleteitem = course.courseId"
-                >
-                  <i class="fa fa-trash"></i>
-                </a>
-                <a
-                  class="btn btn-success"
-                  [routerLink]="['/admin-panel/Courses/', course.courseId]"
-                >
-                  <i class="fa fa-sign-in"></i>
-                </a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                <td colspan="1">{{ course.courseDescription }}</td>
+                <td colspan="1">{{ course.day }}</td>
+                <td colspan="1">{{ course.startTime }}</td>
+                <td colspan="1">{{ course.endTime }}</td>
+                <td colspan="1">
+                  <a
+                    data-toggle="modal"
+                    data-target="#deleteModal"
+                    class="btn btn-danger mr-1"
+                    (click)="deleteitem = course.courseId"
+                  >
+                    <i class="fa fa-trash"></i>
+                  </a>
+                  <a
+                    class="btn btn-success"
+                    [routerLink]="['/admin-panel/Courses/', course.courseId]"
+                  >
+                    <i class="fa fa-sign-in"></i>
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
-</div>
+</ng-container>
+<ng-container *ngIf="addcoursemode">
+  <div class="card shadow mb-4 border-bottom-info">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">add Course</h6>
+    </div>
+    <div class="card-body">
+      <table
+        class="table table-bordered dataTable"
+        id="dataTable"
+        width="100%"
+        cellspacing="0"
+        role="grid"
+        aria-describedby="dataTable_info"
+        style="width: 100%"
+      >
+        <thead>
+          <tr class="text-center">
+            <th rowspan="1" colspan="1">Course Name</th>
+            <th rowspan="1" colspan="1">Course Description</th>
+            <th rowspan="1" colspan="1">Course day</th>
+            <th rowspan="1" colspan="1">Course start time</th>
+            <th rowspan="1" colspan="1">Course end time</th>
+            <th rowspan="1" colspan="1"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            role="row"
+            class="odd text-center"
+            *ngFor="let course of allcourses"
+          >
+            <td class="justify-content-center text-center">
+              {{ course.courseName }}
+            </td>
+
+            <td colspan="1">{{ course.courseDescription }}</td>
+            <td colspan="1">{{ course.day }}</td>
+            <td colspan="1">{{ course.startTime }}</td>
+            <td colspan="1">{{ course.endTime }}</td>
+            <td colspan="1">
+              <a
+                class="btn btn-success"
+                (click)="
+                  add_course(course.courseId);
+                  addcoursemode = !addcoursemode;
+                "
+              >
+                <i class="fa fa-sign-in"></i>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="row justify-content-center">
+        <div class="col-sm-12 col-md-6">
+          <div
+            class="dataTables_paginate paging_simple_numbers"
+            id="dataTable_paginate2"
+          >
+            <ul class="pagination" *ngIf="pagingInfop.totalPages != 1">
+              <li
+                [ngClass]="{ disabled: pagingInfop.currentPages === 1 }"
+                class="paginate_button page-item previous"
+                id="dataTable_previous"
+              >
+                <a
+                  [routerLink]="[]"
+                  [queryParams]="{
+                    PageNumber: pagingInfop.currentPages - 1
+                  }"
+                  aria-controls="dataTable_paginate2"
+                  data-dt-idx="0"
+                  tabindex="0"
+                  class="page-link"
+                  [ngClass]="{
+                    'color-green': pagingInfop.currentPages !== 1
+                  }"
+                  >Previous</a
+                >
+              </li>
+              <ng-container *ngFor="let i of counter(pagingInfop.currentPages)">
+                <ng-container *ngIf="i != '..'; else max">
+                  <li
+                    class="paginate_button page-item"
+                    [ngClass]="{
+                      active: pagingInfop.currentPages === i
+                    }"
+                  >
+                    <a
+                      [routerLink]="[]"
+                      [queryParams]="{
+                        PageNumber: i
+                      }"
+                      [ngClass]="{
+                        'color-green': pagingInfop.currentPages !== i
+                      }"
+                      aria-controls="dataTable_paginate2"
+                      data-dt-idx="1"
+                      tabindex="0"
+                      class="page-link"
+                      >{{ i }}</a
+                    >
+                  </li>
+                </ng-container>
+                <ng-template #max>
+                  <li class="paginate_button page-item disabled">
+                    <a
+                      [ngClass]="{
+                        'color-green': pagingInfop.currentPages !== i
+                      }"
+                      aria-controls="dataTable_paginate2"
+                      data-dt-idx="1"
+                      tabindex="0"
+                      class="page-link"
+                      >{{ i }}</a
+                    >
+                  </li>
+                </ng-template>
+              </ng-container>
+              <li
+                [ngClass]="{
+                  disabled: pagingInfop.currentPages === pagingInfop.totalPages
+                }"
+                class="paginate_button page-item next"
+                id="dataTable_next"
+              >
+                <a
+                  [ngClass]="{
+                    'color-green':
+                      pagingInfop.currentPages !== pagingInfop.totalPages
+                  }"
+                  [routerLink]="[]"
+                  [queryParams]="{
+                    PageNumber: pagingInfop.currentPages + 1
+                  }"
+                  aria-controls="dataTable_paginate2"
+                  data-dt-idx="7"
+                  tabindex="0"
+                  class="page-link"
+                  >Next</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
 
 <!-- delete modal -->
 <div
@@ -219,7 +372,7 @@
         </button>
         <a
           data-dismiss="modal"
-          (click)="boraz(deleteitem)"
+          (click)="drop_course(deleteitem)"
           class="btn btn-danger"
           >Delet</a
         >

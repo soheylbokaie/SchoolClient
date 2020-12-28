@@ -22,6 +22,7 @@ export interface IAddCourseToTimeTable {
   day: number;
 }
 
+
 export interface ICourse {
   courseName: string;
   courseDescription: string;

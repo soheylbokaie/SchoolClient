@@ -6,13 +6,15 @@ export interface IStudentReg {
   departmentId: number;
 }
 
-export interface IStudentView{
+export interface IStudentView {
   id: string;
   studentName: string;
   departmentName: string;
 }
 
-export interface IStudentUpdate{
+export interface IStudentUpdate {}
 
-
+export interface IAddCourseStudent {
+  userId: string;
+  courseId: string;
 }
