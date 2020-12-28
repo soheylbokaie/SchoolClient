@@ -1,6 +1,6 @@
 # SchoolClient
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.4.
+for Installing node_models packages run `npm i`
 
 ## Development server
 
