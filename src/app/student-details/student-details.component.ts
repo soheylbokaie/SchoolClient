@@ -36,10 +36,12 @@ export class StudentDetailsComponent implements OnInit {
     private userService: UserService,
     private toaster: ToastrService
   ) {}
+  page = 1;
   student: IStudentView;
   idtoken: string;
   courses: ICourse[];
   allcourses: ICourse[];
+  available_courses: ICourse[] = [];
   mode: boolean;
   deleteitem: string;
   addcoursemode: boolean = false;
@@ -54,9 +56,7 @@ export class StudentDetailsComponent implements OnInit {
     this.formAddInit();
   }
 
-  back() {
-    this.httpService.back();
-  }
+
   get_Authorize() {
     this.userService.currentToken$.subscribe((res) => {
       this.idtoken = res.token;
@@ -83,26 +83,34 @@ export class StudentDetailsComponent implements OnInit {
   get_all_courses() {
     this.route.queryParams.subscribe((obj) => {
       this.pagingInfop = {
-        currentPages: !!obj['PageNumber'] ? +obj['PageNumber'] : 1,
-        pageSize: 10,
+        currentPages: 1,
+        pageSize: 300,
         nextLink: '',
         prevLink: '',
         totalCount: 0,
         totalPages: 0,
       };
     });
-    console.log(this.pagingInfop);
-    const paramss = new HttpParams().set(
-      'PageNumber',
-      this.pagingInfop.currentPages.toString()
-    );
+    const paramss = new HttpParams()
+      .set('PageNumber', this.pagingInfop.currentPages.toString())
+      .set('PageSize', this.pagingInfop.pageSize.toString());
     this.http
       .get(this.httpService.base_url + 'GetAllCourses', { params: paramss })
-      .subscribe((response: IResponseCourse) => {
-        this.allcourses = response['courses'];
-        this.pagingInfop = response['pagingInfo'];
-        console.log(this.allcourses);
-      });
+      .subscribe(
+        (response: IResponseCourse) => {
+          this.allcourses = response['courses'];
+          this.pagingInfop = response['pagingInfo'];
+          this.allcourses.forEach((element) => {
+            if (element.department == this.student.departmentName) {
+              this.available_courses.push(element);
+            }
+          });
+          console.log(this.available_courses);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
   }
 
   get_student_courses() {

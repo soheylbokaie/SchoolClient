@@ -15,6 +15,7 @@ import { ShowTeachersComponent } from './show-teachers/show-teachers.component';
 import { StudentControllComponent } from './student-controll/student-controll.component';
 import { StudentDetailsComponent } from './student-details/student-details.component';
 import { TaechersComponent } from './taechers/taechers.component';
+import { TeacherControllComponent } from './teacher-controll/teacher-controll.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 
 const routes: Routes = [
@@ -44,6 +45,7 @@ const routes: Routes = [
       { path: 'Courses', component: AdminPanelCoursesComponent },
       { path: 'Courses/:id', component: CoursesControllComponent },
       { path: 'Teachers', component: AdminPanelTeachersComponent },
+      { path: 'Teachers/:depid', component: TeacherControllComponent },
       { path: '', component: UserProfileComponent },
     ],
   },

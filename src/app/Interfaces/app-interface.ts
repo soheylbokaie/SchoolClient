@@ -3,7 +3,7 @@ export interface ITeacherReg {
   userName: string;
   password: string;
   departmentId: number;
-  role: string;
+  email: string;
 }
 
 export interface ITeacherView {
