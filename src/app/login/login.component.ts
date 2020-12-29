@@ -8,6 +8,7 @@ import { UserService } from '../user.service';
 import jwt_decode from 'jwt-decode';
 import jwtDecode from 'jwt-decode';
 import { Token } from '@angular/compiler/src/ml_parser/lexer';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,11 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   currentUser$: Observable<IUSer>;
   baseurl: string = 'https://localhost:5001/';
-  constructor(private http: HttpClient, private userService: UserService) {}
+  constructor(
+    private http: HttpClient,
+    private userService: UserService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.formInit();
@@ -42,6 +47,7 @@ export class LoginComponent implements OnInit {
       password: this.loginForm.get('password').value,
     };
     this.userService.login(user);
+    this.router.navigate(['']);
   }
 
   public decode_jwt() {
