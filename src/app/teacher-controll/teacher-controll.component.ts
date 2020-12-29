@@ -4,9 +4,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { HttpService } from '../http.service';
-import { ITeacherReg, ITeacherView } from '../Interfaces/app-interface';
 import { IPaging } from '../Interfaces/paging-interface';
 import { IStudentReg, IStudentView } from '../Interfaces/Student-interface';
+import { ITeacherReg, ITeacherView } from '../Interfaces/Teacher-interface';
 import { UserService } from '../user.service';
 import * as MyValidators from '../validators/app-formvalidators';
 

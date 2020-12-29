@@ -3,7 +3,7 @@ import { Route } from '@angular/compiler/src/core';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpService } from '../http.service';
-import { ITeacherView } from '../Interfaces/app-interface';
+import { ITeacherView } from '../Interfaces/Teacher-interface';
 import { UserService } from '../user.service';
 
 @Component({

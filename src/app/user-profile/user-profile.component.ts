@@ -2,7 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpService } from '../http.service';
-import { ITeacherView, IUSer } from '../Interfaces/app-interface';
+import { IUSer } from '../Interfaces/app-interface';
+import { ITeacherView } from '../Interfaces/Teacher-interface';
 import { TokenService } from '../token.service';
 import { UserService } from '../user.service';
 

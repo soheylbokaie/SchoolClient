@@ -4,13 +4,13 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { HttpService } from '../http.service';
-import { ITeacherEdit, ITeacherView } from '../Interfaces/app-interface';
 import { ICourse, IResponseCourse } from '../Interfaces/Course-interface';
 import { IPaging } from '../Interfaces/paging-interface';
 import {
   IAddCourseStudent,
   IStudentView,
 } from '../Interfaces/Student-interface';
+import { ITeacherEdit, ITeacherView } from '../Interfaces/Teacher-interface';
 import { TokenService } from '../token.service';
 import { UserService } from '../user.service';
 
