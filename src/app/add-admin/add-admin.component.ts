@@ -51,7 +51,7 @@ export class AddAdminComponent implements OnInit {
   }
   get_Authorize() {
     this.userService.currentToken$.subscribe((res) => {
-      this.idtoken = res.token;
+      this.idtoken = res?.token;
     });
   }
   add_item() {
@@ -67,12 +67,14 @@ export class AddAdminComponent implements OnInit {
         })
         .subscribe(
           (response) => {
-            console.log(response);
+            this.toastr.success('admin has added successfully', 'success');
+            this.addForm.reset();
+            this.router.navigate(['/admin-panel']);
           },
           (error) => {
             let errorMessage: string = '';
             switch (error.status) {
-              case 403:
+              case 403 || 401:
                 errorMessage = 'you are not allowed to do that !';
                 break;
 
