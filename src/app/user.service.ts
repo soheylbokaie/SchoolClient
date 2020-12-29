@@ -39,6 +39,7 @@ export class UserService {
           localStorage.setItem('user', JSON.stringify(response));
           this.currentUserSource.next(this.tokenService.toUser(response));
           this.Token.next(response);
+          this.router.navigate(['']);
         } else {
           this.toaster.error('username or password is not correct', 'invalid');
         }

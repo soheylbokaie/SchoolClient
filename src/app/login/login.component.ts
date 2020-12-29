@@ -47,7 +47,6 @@ export class LoginComponent implements OnInit {
       password: this.loginForm.get('password').value,
     };
     this.userService.login(user);
-    this.router.navigate(['']);
   }
 
   public decode_jwt() {
