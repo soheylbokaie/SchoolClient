@@ -39,6 +39,7 @@ const routes: Routes = [
     path: 'admin-panel',
     component: AdminPanelComponent,
     canActivate: [ControlPanelGuardGuard],
+    canActivateChild: [ControlPanelGuardGuard],
     children: [
       { path: 'Departments', component: AdminPanelDepartmentsComponent },
       { path: 'Students', component: AdminPanelStudentsComponent },
@@ -61,7 +62,10 @@ const routes: Routes = [
         path: 'Teachers/detail/:teacherid',
         component: TeacherDetailsComponent,
       },
-      { path: 'Teachers/detail', component: TeacherDetailsComponent },
+      {
+        path: 'Teachers/detail',
+        component: TeacherDetailsComponent,
+      },
 
       { path: 'Teachers/:depid', component: TeacherControllComponent },
       { path: 'register-admin', component: AddAdminComponent },

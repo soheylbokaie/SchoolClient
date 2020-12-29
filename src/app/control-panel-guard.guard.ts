@@ -17,20 +17,54 @@ import { map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root',
 })
-export class ControlPanelGuardGuard implements CanActivate {
+export class ControlPanelGuardGuard
+  implements CanActivate, CanActivateChild, CanLoad {
   constructor(
     private userService: UserService,
     private toaster: ToastrService
   ) {}
-  canActivate():
+  canActivate(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ):
     | Observable<boolean | UrlTree>
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    return this.userService.currentToken$.pipe(
+    return this.userService.currentUser$.pipe(
       map((user) => {
         if (user) return true;
-        this.toaster.error("you don't have permision!", 'error');
+        this.toaster.info('you are not allowed');
+      })
+    );
+  }
+  canActivateChild(
+    childRoute: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ):
+    | Observable<boolean | UrlTree>
+    | Promise<boolean | UrlTree>
+    | boolean
+    | UrlTree {
+    return this.userService.currentUser$.pipe(
+      map((user) => {
+        if (user) return true;
+        this.toaster.info('you are not allowed');
+      })
+    );
+  }
+  canLoad(
+    route: Route,
+    segments: UrlSegment[]
+  ):
+    | Observable<boolean | UrlTree>
+    | Promise<boolean | UrlTree>
+    | boolean
+    | UrlTree {
+    return this.userService.currentUser$.pipe(
+      map((user) => {
+        if (user) return true;
+        this.toaster.info('you are not allowed');
       })
     );
   }

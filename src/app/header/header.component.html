@@ -40,13 +40,7 @@
       </li>
       <ng-container *ngIf="currentUser$ | async">
         <li class="nav-item">
-          <a
-            class="nav-link"
-            [routerLink]="['/admin-panel']"
-            routerLinkActive="active"
-            [routerLinkActiveOptions]="{ exact: true }"
-            >Panel</a
-          >
+          <a class="nav-link" href="/admin-panel">Panel</a>
         </li>
         <li class="nav-item">
           <a
@@ -79,7 +73,12 @@
           >
             <a class="dropdown-item" href="#">Action</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" [routerLink]="['/login']" (click)="logout()">Log Out</a>
+            <a
+              class="dropdown-item"
+              [routerLink]="['/login']"
+              (click)="logout()"
+              >Log Out</a
+            >
           </div>
         </li>
       </ul>
