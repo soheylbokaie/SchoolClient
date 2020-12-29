@@ -5,7 +5,12 @@ import jwtDecode from 'jwt-decode';
 import { ToastrService } from 'ngx-toastr';
 import { ReplaySubject } from 'rxjs';
 import { HttpService } from './http.service';
-import { ILoginResp, IUSer, IUserLogin } from './Interfaces/app-interface';
+import {
+  ILoginResp,
+  ITokenRefresh,
+  IUSer,
+  IUserLogin,
+} from './Interfaces/app-interface';
 import { TokenService } from './token.service';
 
 @Injectable({
@@ -49,6 +54,21 @@ export class UserService {
     this.currentUserSource.next(this.tokenService.toUser(resp));
   }
 
+  refreshToken(user: ILoginResp): ILoginResp {
+    let res = null;
+    const temp: ITokenRefresh = {
+      refreshToken: user.refreshToken,
+      token: user.token,
+    };
+    this.http
+      .post(this.base_url + 'api/refreshToken', temp)
+      .subscribe((response: ILoginResp) => {
+        console.log(response);
+        res = response;
+      });
+    return res;
+  }
+
   logout() {
     this.Token.next(null);
     this.currentUserSource.next(null);
@@ -58,16 +78,18 @@ export class UserService {
   public decode_jwt() {
     let user: IUSer | null = null;
     this.currentToken$.subscribe((res: ILoginResp) => {
-      if (!this.tokenService.tokenExpired(res.token)) {
-        console.log('token is valid');
-        const temp = this.tokenService.getUserId(res.token);
-        user = {
-          id: temp['id'],
-          name: temp['name'],
-          role: temp['role'][0],
-        };
-      } else {
-        console.log('token has expired');
+      if (res != null) {
+        if (!this.tokenService.tokenExpired(res.token)) {
+          console.log('token is valid');
+          const temp = this.tokenService.getUserId(res.token);
+          user = {
+            id: temp['id'],
+            name: temp['name'],
+            role: temp['role'][0],
+          };
+        } else {
+          console.log('token has expired');
+        }
       }
     });
     return user;

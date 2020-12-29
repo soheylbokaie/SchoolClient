@@ -7,6 +7,7 @@ import { AdminPanelStudentsComponent } from './admin-panel-students/admin-panel-
 import { AdminPanelTeachersComponent } from './admin-panel-teachers/admin-panel-teachers.component';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import { ContainerComponent } from './container/container.component';
+import { ControlPanelGuardGuard } from './control-panel-guard.guard';
 import { CoursesControllComponent } from './courses-controll/courses-controll.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
@@ -37,6 +38,7 @@ const routes: Routes = [
   {
     path: 'admin-panel',
     component: AdminPanelComponent,
+    canActivate: [ControlPanelGuardGuard],
     children: [
       { path: 'Departments', component: AdminPanelDepartmentsComponent },
       { path: 'Students', component: AdminPanelStudentsComponent },
