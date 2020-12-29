@@ -53,7 +53,7 @@ export class StudentControllComponent implements OnInit {
         Validators.required,
         Validators.minLength(8),
         MyValidators.lowercaseValidator,
-        MyValidators.lowercaseValidator,
+        MyValidators.UppercaseValidator,
         MyValidators.UniqueChars,
         MyValidators.Digit,
       ]),

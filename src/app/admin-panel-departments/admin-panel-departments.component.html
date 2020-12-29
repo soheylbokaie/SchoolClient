@@ -284,26 +284,7 @@
     </div>
 
     <div class="card-body">
-      <!-- <form (ngSubmit)="add_item()" [formGroup]="addForm">
-        <div class="form-group">
-          <div class="row">
-            <label for="name" class="mr-5">Name:</label>
-            <input
-              [class.is-invalid]="
-                addForm.get('name').errors && addForm.get('name').touched
-              "
-              type="text"
-              class="form-control col-sm-12 col-md-6"
-              id="name"
-              formControlName="name"
-              aria-describedby="name"
-              placeholder="name"
-            />
-            <div class="invalid-feedback">please enetr a valid name</div>
-          </div>
-        </div>
-        <button type="submit" class="ml-5 btn btn-primary">Add</button>
-      </form> -->
+
 
       <form class="form-inline" (ngSubmit)="add_item()" [formGroup]="addForm">
         <div class="form-group mx-sm-3 mb-2">
@@ -318,8 +299,10 @@
               addForm.get('name').errors && addForm.get('name').touched
             "
           />
+          <div class="invalid-feedback">this field is required.</div>
+
         </div>
-        <button type="submit" class="btn btn-primary mb-2">Add</button>
+        <button [disabled]="addForm.status == 'INVALID'" type="submit" class="btn btn-primary mb-2">Add</button>
       </form>
     </div>
   </div>

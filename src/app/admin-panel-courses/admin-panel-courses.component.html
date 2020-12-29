@@ -239,6 +239,7 @@
               class="form-control"
               placeholder="Course Name"
             />
+            <div class="invalid-feedback">this field is required.</div>
           </div>
           <div class="col">
             <input
@@ -251,6 +252,7 @@
               class="form-control"
               placeholder="Description"
             />
+            <div class="invalid-feedback">this field is required.</div>
           </div>
         </div>
         <div class="row mt-2">
@@ -265,6 +267,7 @@
               class="form-control"
               placeholder="Credit"
             />
+            <div class="invalid-feedback">this field is required.</div>
           </div>
           <div class="col">
             <input
@@ -276,6 +279,7 @@
               class="form-control"
               placeholder="day"
             />
+            <div class="invalid-feedback">this field is required.</div>
           </div>
           <div class="col">
             <input
@@ -288,6 +292,7 @@
               class="form-control"
               placeholder="Department Id"
             />
+            <div class="invalid-feedback">this field is required.</div>
           </div>
         </div>
         <div class="row mt-2">
@@ -303,6 +308,7 @@
               class="form-control"
               name="Start-Date"
             />
+            <div class="invalid-feedback">this field is required.</div>
           </div>
           <div class="col">
             <label for="Start-Time">Start Time:</label>
@@ -316,6 +322,7 @@
               class="form-control"
               name="Start-Time"
             />
+            <div class="invalid-feedback">this field is required.</div>
           </div>
         </div>
         <div class="row mt-2">
@@ -330,6 +337,7 @@
               class="form-control"
               name="End-Date"
             />
+            <div class="invalid-feedback">this field is required.</div>
           </div>
           <div class="col">
             <label for="End-Time">End Time:</label>
@@ -342,11 +350,18 @@
               class="form-control"
               placeholder="End-Time"
             />
+            <div class="invalid-feedback">this field is required.</div>
           </div>
         </div>
         <div class="row mt-4">
           <div class="col">
-            <button type="submit" class="btn btn-primary">Add</button>
+            <button
+              [disabled]="addForm.status == 'INVALID'"
+              type="submit"
+              class="btn btn-primary"
+            >
+              Add
+            </button>
           </div>
         </div>
       </form>
