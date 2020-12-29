@@ -23,28 +23,8 @@ export class UserProfileComponent implements OnInit {
     private httpService: HttpService
   ) {}
   base_url = this.httpService.base_url;
-  currentUser$: Observable<IUSer>;
-  name: string;
-  role: string;
-  id: string;
-  user: ITeacherView;
+  user: IUSer;
   ngOnInit(): void {
-    this.currentUser$ = this.userService.currentUser$;
-    this.currentUser$.subscribe((params) => {
-      this.name = params?.name;
-      this.role = params?.role;
-      this.id = params?.id;
-    });
-    if (this.role == 'Teacher') {
-      this.getTeacher();
-    }
-  }
-
-  getTeacher() {
-    this.http
-      .get(this.base_url + 'api/getTeacher/' + this.id)
-      .subscribe((params: ITeacherView) => {
-        this.user = params;
-      });
+    this.user = this.userService.decode_jwt();
   }
 }

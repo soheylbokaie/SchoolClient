@@ -56,14 +56,20 @@ export class UserService {
   }
 
   public decode_jwt() {
+    let user: IUSer | null = null;
     this.currentToken$.subscribe((res: ILoginResp) => {
-      console.log(res);
-      if (this.tokenService.tokenExpired) {
-        console.log(this.tokenService.getUserId(res.token));
+      if (!this.tokenService.tokenExpired(res.token)) {
         console.log('token is valid');
+        const temp = this.tokenService.getUserId(res.token);
+        user = {
+          id: temp['id'],
+          name: temp['name'],
+          role: temp['role'][0],
+        };
       } else {
         console.log('token has expired');
       }
     });
+    return user;
   }
 }

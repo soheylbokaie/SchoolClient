@@ -33,25 +33,35 @@ const routes: Routes = [
       { path: '404-error', component: NotFoundComponent },
     ],
   },
+
   {
     path: 'admin-panel',
     component: AdminPanelComponent,
     children: [
       { path: 'Departments', component: AdminPanelDepartmentsComponent },
       { path: 'Students', component: AdminPanelStudentsComponent },
-      { path: 'Students/:depid', component: StudentControllComponent },
+      { path: 'Students', component: AdminPanelStudentsComponent },
+
       {
         path: 'Students/detail/:studentid',
         component: StudentDetailsComponent,
       },
+      {
+        path: 'Students/detail',
+        component: StudentDetailsComponent,
+      },
+      { path: 'Students/:depid', component: StudentControllComponent },
+
       { path: 'Courses', component: AdminPanelCoursesComponent },
       { path: 'Courses/:id', component: CoursesControllComponent },
       { path: 'Teachers', component: AdminPanelTeachersComponent },
-      { path: 'Teachers/:depid', component: TeacherControllComponent },
       {
         path: 'Teachers/detail/:teacherid',
         component: TeacherDetailsComponent,
       },
+      { path: 'Teachers/detail', component: TeacherDetailsComponent },
+
+      { path: 'Teachers/:depid', component: TeacherControllComponent },
       { path: 'register-admin', component: AddAdminComponent },
       { path: '', component: UserProfileComponent },
     ],

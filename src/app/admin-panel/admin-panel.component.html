@@ -38,82 +38,94 @@
       <!-- Divider -->
       <hr class="sidebar-divider" />
 
-      <!-- Heading -->
-      <div class="sidebar-heading">Interface</div>
-
-      <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item">
-        <a
-          class="nav-link collapsed"
-          href="#"
-          data-toggle="collapse"
-          data-target="#collapseTwo"
-          aria-expanded="true"
-          aria-controls="collapseTwo"
-        >
-          <i class="fa fa-cog"></i>
-          <span>Controlls</span>
-        </a>
-        <div
-          id="collapseTwo"
-          class="collapse"
-          aria-labelledby="headingTwo"
-          data-parent="#accordionSidebar"
-        >
-          <div class="bg-white py-2 collapse-inner rounded">
-            <a
-              class="collapse-item"
-              [routerLink]="['Courses']"
-              routerLinkActive="active"
-              >Courses</a
-            >
-            <a
-              class="collapse-item"
-              [routerLink]="['Departments']"
-              routerLinkActive="active"
-              >Departments</a
-            >
-            <a
-              class="collapse-item"
-              [routerLink]="['Students']"
-              routerLinkActive="active"
-              >Students
-            </a>
-            <a
-              class="collapse-item"
-              [routerLink]="['Teachers']"
-              routerLinkActive="active"
-              >Teachers</a
-            >
+      <ng-container *ngIf="role == 'Admin'">
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item">
+          <a
+            class="nav-link collapsed"
+            href="#"
+            data-toggle="collapse"
+            data-target="#collapseTwo"
+            aria-expanded="true"
+            aria-controls="collapseTwo"
+          >
+            <i class="fa fa-cog"></i>
+            <span>Controlls</span>
+          </a>
+          <div
+            id="collapseTwo"
+            class="collapse"
+            aria-labelledby="headingTwo"
+            data-parent="#accordionSidebar"
+          >
+            <div class="bg-white py-2 collapse-inner rounded">
+              <a
+                class="collapse-item"
+                [routerLink]="['Courses']"
+                routerLinkActive="active"
+                >Courses</a
+              >
+              <a
+                class="collapse-item"
+                [routerLink]="['Departments']"
+                routerLinkActive="active"
+                >Departments</a
+              >
+              <a
+                class="collapse-item"
+                [routerLink]="['Students']"
+                routerLinkActive="active"
+                >Students
+              </a>
+              <a
+                class="collapse-item"
+                [routerLink]="['Teachers']"
+                routerLinkActive="active"
+                >Teachers</a
+              >
+            </div>
           </div>
-        </div>
-      </li>
+        </li>
 
-      <!-- Nav Item - Utilities Collapse Menu -->
-      <li class="nav-item">
-        <a
-          class="nav-link collapsed"
-          href="#"
-          data-toggle="collapse"
-          data-target="#collapseUtilities"
-          aria-expanded="true"
-          aria-controls="collapseUtilities"
-        >
-          <i class="fa fa-fw fa-wrench"></i>
-          <span>Admin</span>
-        </a>
-        <div
-          id="collapseUtilities"
-          class="collapse"
-          aria-labelledby="headingUtilities"
-          data-parent="#accordionSidebar"
-        >
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Admin Utilities:</h6>
-            <a class="collapse-item" [routerLink]="['register-admin']" routerLinkActive="active" >Register Admin</a>
+        <!-- Nav Item - Utilities Collapse Menu -->
+        <li class="nav-item">
+          <a
+            class="nav-link collapsed"
+            href="#"
+            data-toggle="collapse"
+            data-target="#collapseUtilities"
+            aria-expanded="true"
+            aria-controls="collapseUtilities"
+          >
+            <i class="fa fa-fw fa-wrench"></i>
+            <span>Admin</span>
+          </a>
+          <div
+            id="collapseUtilities"
+            class="collapse"
+            aria-labelledby="headingUtilities"
+            data-parent="#accordionSidebar"
+          >
+            <div class="bg-white py-2 collapse-inner rounded">
+              <h6 class="collapse-header">Admin Utilities:</h6>
+              <a
+                class="collapse-item"
+                [routerLink]="['register-admin']"
+                routerLinkActive="active"
+                >Register Admin</a
+              >
+            </div>
           </div>
-        </div>
-      </li>
+        </li>
+      </ng-container>
+      <ng-container *ngIf="role != 'Admin'">
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" [routerLink]="[role + 's/detail']">
+            <i class="fa fa-cog"></i>
+            <span>Controlls</span>
+          </a>
+        </li>
+      </ng-container>
     </ul>
     <!-- End of Sidebar -->
 

@@ -18,15 +18,13 @@ export class TokenService {
     return jwtDecode(token);
   }
 
-
-  public toUser(response:ILoginResp):IUSer{
-    let userdata = jwtDecode(response.token)
-     const user:IUSer = {
-
-       id:userdata["id"],
-       role:userdata["role"][0],
-       name:userdata["name"]
-     }
-    return(user)
+  public toUser(response: ILoginResp): IUSer {
+    let userdata = jwtDecode(response.token);
+    const user: IUSer = {
+      id: userdata['id'],
+      role: userdata['role'][0],
+      name: userdata['name'],
+    };
+    return user;
   }
 }

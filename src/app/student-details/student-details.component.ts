@@ -48,14 +48,18 @@ export class StudentDetailsComponent implements OnInit {
   addform: FormGroup;
   pagingInfop: IPaging;
   ngOnInit(): void {
-    this.set_student(this.route.snapshot.params['studentid']);
+    const params = this.route.snapshot.params['studentid'];
+    if (params != null) {
+      this.set_student(params);
+    } else {
+      this.set_student(this.userService.decode_jwt().id);
+    }
     this.get_Authorize();
     this.get_student_detail();
     this.get_student_courses();
     this.get_all_courses();
     this.formAddInit();
   }
-
 
   get_Authorize() {
     this.userService.currentToken$.subscribe((res) => {
@@ -122,7 +126,6 @@ export class StudentDetailsComponent implements OnInit {
         this.courses = response;
       });
   }
-
 
   drop_course(course_id: String) {
     this.http
