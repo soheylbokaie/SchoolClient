@@ -1,0 +1,101 @@
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">User Details</h6>
+  </div>
+  <div class="card-body">
+    <form (ngSubmit)="add_item()" [formGroup]="addForm">
+      <div class="row">
+        <div class="col-auto">
+          <label>User Name : </label>
+          <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <div class="input-group-text"><i class="fa fa-user"></i></div>
+            </div>
+            <input
+              formControlName="userName"
+              [class.is-invalid]="
+                addForm.get('userName').errors &&
+                addForm.get('userName').touched
+              "
+              type="text"
+              class="form-control"
+              placeholder="User Name"
+            />
+          </div>
+        </div>
+        <div class="col-auto">
+          <label>password : </label>
+          <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <div class="input-group-text"><i class="fa fa-lock"></i></div>
+            </div>
+            <input
+              formControlName="password"
+              [class.is-invalid]="
+                addForm.get('password').errors &&
+                addForm.get('password').touched
+              "
+              type="password"
+              class="form-control"
+              placeholder="password"
+            />
+          </div>
+        </div>
+        <div class="col-auto">
+          <label>confirm password : </label>
+          <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <div class="input-group-text"><i class="fa fa-lock"></i></div>
+            </div>
+            <input
+              formControlName="confirmPassword"
+              [class.is-invalid]="
+                addForm.get('confirmPassword').errors &&
+                addForm.get('confirmPassword').touched
+              "
+              type="password"
+              class="form-control"
+              id="inlineFormInputGroup"
+              placeholder="confirm password"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-auto">
+          <label>Admin Name : </label>
+          <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <i class="fa fa-user-circle"></i>
+              </div>
+            </div>
+            <input
+              formControlName="adminName"
+              [class.is-invalid]="
+                addForm.get('adminName').errors &&
+                addForm.get('adminName').touched
+              "
+              type="text"
+              class="form-control"
+              placeholder="Admin Name"
+            />
+          </div>
+        </div>
+
+
+      </div>
+      <div class="row mt-4">
+        <div class="col">
+          <button
+            type="submit"
+            [disabled]="addForm.status == 'INVALID'"
+            class="btn btn-primary"
+          >
+            Add
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

@@ -107,10 +107,9 @@ export class TeacherDetailsComponent implements OnInit {
               this.available_courses.push(element);
             }
           });
-          console.log(this.available_courses);
         },
         (error) => {
-          console.log(error);
+          this.toaster.error('tehre is an error', 'error');
         }
       );
   }
@@ -127,7 +126,6 @@ export class TeacherDetailsComponent implements OnInit {
       )
       .subscribe((response: ICourse[]) => {
         this.courses = response;
-        console.log(response);
       });
   }
 
@@ -196,7 +194,6 @@ export class TeacherDetailsComponent implements OnInit {
     }
     return list;
   }
-
   editTeacher() {
     const teacher: ITeacherEdit = {
       teacherName: this.editForm.get('teacherName').value,
@@ -207,9 +204,20 @@ export class TeacherDetailsComponent implements OnInit {
         params: paramss,
         headers: { Authorization: 'Bearer ' + this.idtoken },
       })
-      .subscribe((response) => {
-        console.log(response);
-      });
+      .subscribe(
+        (response) => {
+          this.toaster.success(
+            'name has been successfully changed ',
+            'success'
+          );
+          this.mode = !this.mode;
+          this.get_teacher_detail();
+        },
+        (error) => {
+          this.toaster.error('there is an error (check console)', 'error');
+          console.error(error);
+        }
+      );
   }
   editforminit() {
     this.editForm = new FormGroup({

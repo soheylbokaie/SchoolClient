@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../http.service';
-import { ITeacherView } from '../Interfaces/app-interface';
+import { ITeacherView } from '../Interfaces/Teacher-interface';
 import { IDepartment } from '../Interfaces/Department-interface';
 
 @Component({

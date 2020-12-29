@@ -34,13 +34,11 @@
                   editForm.get('teacherName').errors &&
                   editForm.get('teacherName').touched
                 "
-                [value]="teacher?.teacherName"
               />
               <div class="form-check mb-2 mr-sm-2"></div>
 
               <button
                 type="submit"
-                (click)="mode = !mode"
                 class="btn btn-outline-success mb-2"
               >
                 <i class="fa fa-check"></i>
