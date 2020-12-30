@@ -57,8 +57,8 @@ export class AdminPanelStudentsComponent implements OnInit {
   public GetallDepartments(): void {
     this.route.queryParams.subscribe((obj) => {
       this.pagingInfop = {
-        currentPages: !!obj['PageNumber'] ? +obj['PageNumber'] : 1,
-        pageSize: !!obj['PageSize'] ? +obj['PageSize'] : 10,
+        currentPages: !!obj.PageNumber ? +obj.PageNumber : 1,
+        pageSize: !!obj.PageSize ? +obj.PageSize : 10,
         nextLink: '',
         prevLink: '',
         totalCount: 0,

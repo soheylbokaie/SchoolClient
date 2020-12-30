@@ -81,7 +81,7 @@ export class TeacherDetailsComponent implements OnInit {
       userName: username,
     };
   }
-  get_teacher_detail() {
+  get_teacher_detail(): void {
     this.http
       .get(
         this.httpService.base_url + 'api/getTeacher/' + this.teacher.teacherId
