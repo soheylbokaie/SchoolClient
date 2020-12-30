@@ -30,7 +30,7 @@ export class AdminGuardGuard implements CanActivate {
     | UrlTree {
     return this.userService.currentUser$.pipe(
       map((user) => {
-        if (user.role == 'Admin') return true;
+        if (user.role === 'Admin') return true;
         this.toaster.info('you are not allowed');
         this.router.navigate(['/admin-panel']);
       })
