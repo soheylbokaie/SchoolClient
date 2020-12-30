@@ -35,7 +35,7 @@ export class TeacherControllComponent implements OnInit {
   base_url = this.httpService.base_url;
   pagingInfop: IPaging;
   teachers: ITeacherView[];
-  mode: boolean = false;
+  mode = false;
   addForm: FormGroup;
   idtoken: string;
   depid: string;
@@ -67,7 +67,7 @@ export class TeacherControllComponent implements OnInit {
       teacherName: new FormControl('', [Validators.required]),
     });
   }
-  get_Authorize() {
+  get_Authorize(): void {
     this.userService.currentToken$.subscribe((res) => {
       this.idtoken = res.token;
     });

@@ -6,7 +6,10 @@ import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
 import { HttpService } from '../http.service';
 import { ICourse } from '../Interfaces/Course-interface';
-import { IDepartment, IResponseDepartment } from '../Interfaces/Department-interface';
+import {
+  IDepartment,
+  IResponseDepartment,
+} from '../Interfaces/Department-interface';
 import { IPaging } from '../Interfaces/paging-interface';
 import { UserService } from '../user.service';
 
@@ -30,7 +33,7 @@ export class AdminPanelTeachersComponent implements OnInit {
   base_url = this.httpService.base_url;
   pagingInfop: IPaging;
   courses: ICourse[];
-  mode: boolean = false;
+  mode = false;
   addForm: FormGroup;
   idtoken: string;
   icon: IconDefinition;
@@ -40,17 +43,17 @@ export class AdminPanelTeachersComponent implements OnInit {
     this.GetallDepartments();
     this.get_Authorize();
   }
-  get_Authorize() {
+  get_Authorize(): void {
     this.userService.currentToken$.subscribe((res) => {
       this.idtoken = res.token;
     });
   }
 
-  public GetallDepartments() {
+  public GetallDepartments(): void {
     this.route.queryParams.subscribe((obj) => {
       this.pagingInfop = {
-        currentPages: !!obj['PageNumber'] ? +obj['PageNumber'] : 1,
-        pageSize: !!obj['PageSize'] ? +obj['PageSize'] : 10,
+        currentPages: !!obj.PageNumber ? +obj.PageNumber : 1,
+        pageSize: !!obj.PageSize ? +obj.PageSize : 10,
         nextLink: '',
         prevLink: '',
         totalCount: 0,
@@ -63,8 +66,8 @@ export class AdminPanelTeachersComponent implements OnInit {
         .get(this.base_url + 'GetAlldepartments', { params: paramss })
         .subscribe(
           (response: IResponseDepartment) => {
-            this.departments = response['departments'];
-            this.pagingInfop = response['pagingInfo'];
+            this.departments = response.departments;
+            this.pagingInfop = response.pagingInfo;
             if (this.pagingInfop.totalPages < this.pagingInfop.currentPages) {
               paramss.set('PageNumber', this.pagingInfop.totalPages.toString());
               this.router.navigate([], {
@@ -83,16 +86,20 @@ export class AdminPanelTeachersComponent implements OnInit {
     });
   }
 
-  counter(i: number) {
-    let list = [];
+  counter(i: number): Array<string | number> {
+    let list: Array<string | number> = [];
     if (i - 3 > 0) {
       list.push('..');
     }
     for (let index = i - 2; index <= i; index++) {
-      if (index > 0) list.push(index);
+      if (index > 0) {
+        list.push(index);
+      }
     }
     for (let index = i + 1; index < i + 3; index++) {
-      if (index <= this.pagingInfop.totalPages) list.push(index);
+      if (index <= this.pagingInfop.totalPages) {
+        list.push(index);
+      }
     }
     if (i + 2 < this.pagingInfop.totalPages) {
       list.push('..');

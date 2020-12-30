@@ -34,7 +34,7 @@ export class StudentControllComponent implements OnInit {
   base_url = this.httpService.base_url;
   pagingInfop: IPaging;
   students: IStudentView[];
-  mode: boolean = false;
+  mode = false;
   addForm: FormGroup;
   idtoken: string;
   depid: string;
@@ -66,7 +66,7 @@ export class StudentControllComponent implements OnInit {
       studentName: new FormControl('', [Validators.required]),
     });
   }
-  get_Authorize() {
+  get_Authorize(): void {
     this.userService.currentToken$.subscribe((res) => {
       this.idtoken = res.token;
     });
@@ -140,7 +140,6 @@ export class StudentControllComponent implements OnInit {
         );
     });
   }
-
 
   delete_item() {
     console.log(this.deleteID);

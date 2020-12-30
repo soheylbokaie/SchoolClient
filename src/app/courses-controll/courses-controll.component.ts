@@ -51,7 +51,7 @@ export class CoursesControllComponent implements OnInit {
       });
   }
 
-  get_Authorize() {
+  get_Authorize(): void {
     this.userService.currentToken$.subscribe((res) => {
       this.idtoken = res.token;
     });

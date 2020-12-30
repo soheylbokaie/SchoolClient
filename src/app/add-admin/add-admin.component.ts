@@ -48,7 +48,7 @@ export class AddAdminComponent implements OnInit {
       adminName: new FormControl('', [Validators.required]),
     });
   }
-  get_Authorize() {
+  get_Authorize(): void {
     this.userService.currentToken$.subscribe((res) => {
       this.idtoken = res?.token;
     });
