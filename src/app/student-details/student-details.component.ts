@@ -43,7 +43,7 @@ export class StudentDetailsComponent implements OnInit {
   idtoken: string;
   courses: ICourse[];
   allcourses: ICourse[];
-  available_courses: ICourse[] = [];
+  availableCourses: ICourse[] = [];
   mode: boolean;
   deleteitem: string;
   addcoursemode = false;
@@ -55,7 +55,7 @@ export class StudentDetailsComponent implements OnInit {
   fileToUpload: null | File;
 
   ngOnInit(): void {
-    const params = this.route.snapshot.params['studentid'];
+    const params = this.route.snapshot.params.studentid;
     if (params != null) {
       this.set_student(params);
       this.studentmode = false;
@@ -120,11 +120,11 @@ export class StudentDetailsComponent implements OnInit {
       .get(this.httpService.base_url + 'GetAllCourses', { params: paramss })
       .subscribe(
         (response: IResponseCourse) => {
-          this.allcourses = response['courses'];
-          this.pagingInfop = response['pagingInfo'];
+          this.allcourses = response.courses;
+          this.pagingInfop = response.pagingInfo;
           this.allcourses.forEach((element) => {
             if (element.department === this.student.departmentName) {
-              this.available_courses.push(element);
+              this.availableCourses.push(element);
             }
           });
         },
@@ -219,7 +219,7 @@ export class StudentDetailsComponent implements OnInit {
       picture: new FormControl('', [Validators.required]),
     });
   }
-  edit_item() {
+  edit_item(): void {
     let formData = new FormData();
     formData.append('Photo', this.fileToUpload);
     formData.append('StudentName', this.editform.get('name').value);
