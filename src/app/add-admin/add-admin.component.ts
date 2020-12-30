@@ -71,7 +71,7 @@ export class AddAdminComponent implements OnInit {
             this.router.navigate(['/admin-panel']);
           },
           (error) => {
-            let errorMessage: string = '';
+            let errorMessage = '';
             switch (error.status) {
               case 403 || 401:
                 errorMessage = 'you are not allowed to do that !';

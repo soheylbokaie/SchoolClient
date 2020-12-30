@@ -17,7 +17,7 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
     private http: HttpClient
   ) {}
   ngOnDestroy(): void {}
-  profile_image: string = 'assets/undraw_profile.svg';
+  profile_image = 'assets/undraw_profile.svg';
   wink_icon: IconDefinition;
   title: string;
   name: string;

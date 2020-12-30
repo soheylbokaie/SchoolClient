@@ -23,7 +23,7 @@ export class ControlPanelGuardGuard
   constructor(
     private userService: UserService,
     private toaster: ToastrService,
-    private router:Router
+    private router: Router
 
   ) {}
   canActivate(
@@ -36,9 +36,9 @@ export class ControlPanelGuardGuard
     | UrlTree {
     return this.userService.currentUser$.pipe(
       map((user) => {
-        if (user) return true;
+        if (user) { return true; }
         this.toaster.info('you are not allowed');
-        this.router.navigate([''])
+        this.router.navigate(['']);
       })
     );
   }
@@ -52,7 +52,7 @@ export class ControlPanelGuardGuard
     | UrlTree {
     return this.userService.currentUser$.pipe(
       map((user) => {
-        if (user) return true;
+        if (user) { return true; }
         this.toaster.info('you are not allowed');
       })
     );
@@ -67,7 +67,7 @@ export class ControlPanelGuardGuard
     | UrlTree {
     return this.userService.currentUser$.pipe(
       map((user) => {
-        if (user) return true;
+        if (user) { return true; }
         this.toaster.info('you are not allowed');
       })
     );

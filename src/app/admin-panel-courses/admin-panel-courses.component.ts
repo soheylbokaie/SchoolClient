@@ -33,7 +33,7 @@ export class AdminPanelCoursesComponent implements OnInit {
   base_url = this.httpService.base_url;
   pagingInfop: IPaging;
   courses: ICourse[];
-  mode: boolean = false;
+  mode = false;
   addForm: FormGroup;
   idtoken: string;
   ngOnInit(): void {
@@ -99,8 +99,8 @@ export class AdminPanelCoursesComponent implements OnInit {
   public GetallCourses() {
     this.route.queryParams.subscribe((obj) => {
       this.pagingInfop = {
-        currentPages: !!obj['PageNumber'] ? +obj['PageNumber'] : 1,
-        pageSize: !!obj['PageSize'] ? +obj['PageSize'] : 10,
+        currentPages: !!obj.PageNumber ? +obj.PageNumber : 1,
+        pageSize: !!obj.PageSize ? +obj.PageSize : 10,
         nextLink: '',
         prevLink: '',
         totalCount: 0,
@@ -113,8 +113,8 @@ export class AdminPanelCoursesComponent implements OnInit {
         .get(this.base_url + 'GetAllCourses', { params: paramss })
         .subscribe(
           (response: IResponseCourse) => {
-            this.courses = response['courses'];
-            this.pagingInfop = response['pagingInfo'];
+            this.courses = response.courses;
+            this.pagingInfop = response.pagingInfo;
             if (this.pagingInfop.totalPages < this.pagingInfop.currentPages) {
               paramss.set('PageNumber', this.pagingInfop.totalPages.toString());
               this.router.navigate([], {
@@ -134,15 +134,15 @@ export class AdminPanelCoursesComponent implements OnInit {
   }
 
   counter(i: number) {
-    let list = [];
+    const list = [];
     if (i - 3 > 0) {
       list.push('..');
     }
     for (let index = i - 2; index <= i; index++) {
-      if (index > 0) list.push(index);
+      if (index > 0) { list.push(index); }
     }
     for (let index = i + 1; index < i + 3; index++) {
-      if (index <= this.pagingInfop.totalPages) list.push(index);
+      if (index <= this.pagingInfop.totalPages) { list.push(index); }
     }
     if (i + 2 < this.pagingInfop.totalPages) {
       list.push('..');

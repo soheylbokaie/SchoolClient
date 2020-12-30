@@ -37,16 +37,16 @@ export class TeacherDetailsComponent implements OnInit {
   courses: ICourse[];
   allcourses: ICourse[];
   available_courses: ICourse[] = [];
-  mode: boolean = false;
+  mode = false;
   editForm: FormGroup;
   deleteitem: string;
-  addcoursemode: boolean = false;
+  addcoursemode = false;
   addform: FormGroup;
   pagingInfop: IPaging;
-  teachermode: boolean = false;
+  teachermode = false;
 
   ngOnInit(): void {
-    const params = this.route.snapshot.params['teacherid'];
+    const params = this.route.snapshot.params.teacherid;
     if (params != null) {
       this.set_teacher(params);
       this.teachermode = false;
@@ -74,11 +74,11 @@ export class TeacherDetailsComponent implements OnInit {
     userName: string = null
   ) {
     this.teacher = {
-      teacherName: teacherName,
-      email: email,
+      teacherName,
+      email,
       teacherId: id,
       departmentName: dep,
-      userName: userName,
+      userName,
     };
   }
   get_teacher_detail() {
@@ -109,8 +109,8 @@ export class TeacherDetailsComponent implements OnInit {
       .get(this.httpService.base_url + 'GetAllCourses', { params: paramss })
       .subscribe(
         (response: IResponseCourse) => {
-          this.allcourses = response['courses'];
-          this.pagingInfop = response['pagingInfo'];
+          this.allcourses = response.courses;
+          this.pagingInfop = response.pagingInfo;
           this.allcourses.forEach((element) => {
             if (element.department == this.teacher.departmentName) {
               this.available_courses.push(element);
@@ -188,15 +188,15 @@ export class TeacherDetailsComponent implements OnInit {
   }
 
   counter(i: number) {
-    let list = [];
+    const list = [];
     if (i - 3 > 0) {
       list.push('..');
     }
     for (let index = i - 2; index <= i; index++) {
-      if (index > 0) list.push(index);
+      if (index > 0) { list.push(index); }
     }
     for (let index = i + 1; index < i + 3; index++) {
-      if (index <= this.pagingInfop.totalPages) list.push(index);
+      if (index <= this.pagingInfop.totalPages) { list.push(index); }
     }
     if (i + 2 < this.pagingInfop.totalPages) {
       list.push('..');

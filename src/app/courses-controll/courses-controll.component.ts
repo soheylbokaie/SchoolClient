@@ -31,11 +31,11 @@ export class CoursesControllComponent implements OnInit {
   courseId: string;
   course: ICourse;
   idtoken: string;
-  editmode: boolean = false;
+  editmode = false;
   editForm: FormGroup;
 
   ngOnInit(): void {
-    this.courseId = this.route.snapshot.params['id'];
+    this.courseId = this.route.snapshot.params.id;
 
     this.GetCourse();
 
