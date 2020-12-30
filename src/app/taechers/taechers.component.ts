@@ -10,19 +10,19 @@ import { IDepartment } from '../Interfaces/Department-interface';
   styleUrls: ['./taechers.component.css'],
 })
 export class TaechersComponent implements OnInit {
-  base_url = this.httpService.base_url;
+  baseUrl = this.httpService.baseUrl;
   departments: IDepartment;
   constructor(private http: HttpClient, private httpService: HttpService) {}
   ngOnInit(): void {
     this.get_Teachers();
   }
 
-  show() {
+  show(): void {
     console.log(this.departments);
   }
 
-  get_Teachers() {
-    this.http.get(this.base_url + 'GetAlldepartments').subscribe(
+  get_Teachers(): void {
+    this.http.get(this.baseUrl + 'GetAlldepartments').subscribe(
       (response: IDepartment) => {
         this.departments = response['departments'];
       },

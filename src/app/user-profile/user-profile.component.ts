@@ -22,7 +22,7 @@ export class UserProfileComponent implements OnInit {
     private http: HttpClient,
     private httpService: HttpService
   ) {}
-  base_url = this.httpService.base_url;
+  baseUrl = this.httpService.baseUrl;
   user: IUSer;
   ngOnInit(): void {
     this.user = this.userService.decode_jwt();

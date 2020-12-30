@@ -23,8 +23,7 @@ export class ControlPanelGuardGuard
   constructor(
     private userService: UserService,
     private toaster: ToastrService,
-    private router:Router
-
+    private router: Router
   ) {}
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -38,7 +37,7 @@ export class ControlPanelGuardGuard
       map((user) => {
         if (user) return true;
         this.toaster.info('you are not allowed');
-        this.router.navigate([''])
+        this.router.navigate(['']);
       })
     );
   }

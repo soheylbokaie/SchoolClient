@@ -89,13 +89,13 @@ export class StudentDetailsComponent implements OnInit {
   }
   get_student_detail(): void {
     this.http
-      .get(this.httpService.base_url + 'api/getStudent/' + this.student.id)
+      .get(this.httpService.baseUrl + 'api/getStudent/' + this.student.id)
       .subscribe((response: IStudentView) => {
         this.student = response;
         console.log(response);
         if (response.photo != null) {
           this.profilePhoto =
-            this.userService.base_url +
+            this.userService.baseUrl +
             'api/getStudentprofile/' +
             this.student.id;
         }
@@ -117,7 +117,7 @@ export class StudentDetailsComponent implements OnInit {
       .set('PageNumber', this.pagingInfop.currentPages.toString())
       .set('PageSize', this.pagingInfop.pageSize.toString());
     this.http
-      .get(this.httpService.base_url + 'GetAllCourses', { params: paramss })
+      .get(this.httpService.baseUrl + 'GetAllCourses', { params: paramss })
       .subscribe(
         (response: IResponseCourse) => {
           this.allcourses = response.courses;
@@ -136,7 +136,7 @@ export class StudentDetailsComponent implements OnInit {
 
   get_student_courses(): void {
     this.http
-      .get(this.httpService.base_url + 'StudentTimeTable/' + this.student.id, {
+      .get(this.httpService.baseUrl + 'StudentTimeTable/' + this.student.id, {
         headers: { Authorization: 'Bearer ' + this.idtoken },
       })
       .subscribe((response: ICourse[]) => {
@@ -146,7 +146,7 @@ export class StudentDetailsComponent implements OnInit {
 
   drop_course(courseId: string): void {
     this.http
-      .delete(this.httpService.base_url + 'DeleteStudentCourse/' + courseId, {
+      .delete(this.httpService.baseUrl + 'DeleteStudentCourse/' + courseId, {
         headers: { Authorization: 'Bearer ' + this.idtoken },
         responseType: 'text',
       })
@@ -171,7 +171,7 @@ export class StudentDetailsComponent implements OnInit {
       userId: this.student.id,
     };
     this.http
-      .post(this.httpService.base_url + 'api/Add/StudentCourse', course, {
+      .post(this.httpService.baseUrl + 'api/Add/StudentCourse', course, {
         headers: { Authorization: 'Bearer ' + this.idtoken },
       })
       .subscribe(
@@ -225,7 +225,7 @@ export class StudentDetailsComponent implements OnInit {
     formData.append('StudentName', this.editform.get('name').value);
     const paramss = new HttpParams().set('userId', this.student.id);
     this.http
-      .put(this.userService.base_url + 'api/UpdateStudent', formData, {
+      .put(this.userService.baseUrl + 'api/UpdateStudent', formData, {
         headers: { Authorization: 'Bearer ' + this.idtoken },
         params: paramss,
         responseType: 'text',

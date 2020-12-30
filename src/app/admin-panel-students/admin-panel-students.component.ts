@@ -35,7 +35,7 @@ export class AdminPanelStudentsComponent implements OnInit {
     private toastr: ToastrService,
     private httpService: HttpService
   ) {}
-  base_url = this.httpService.base_url;
+  baseUrl = this.httpService.baseUrl;
   pagingInfop: IPaging;
   courses: ICourse[];
   mode = false;
@@ -68,7 +68,7 @@ export class AdminPanelStudentsComponent implements OnInit {
         .set('PageNumber', this.pagingInfop.currentPages.toString())
         .set('PageSize', this.pagingInfop.pageSize.toString());
       this.http
-        .get(this.base_url + 'GetAlldepartments', { params: paramss })
+        .get(this.baseUrl + 'GetAlldepartments', { params: paramss })
         .subscribe(
           (response: IResponseDepartment) => {
             this.departments = response.departments;

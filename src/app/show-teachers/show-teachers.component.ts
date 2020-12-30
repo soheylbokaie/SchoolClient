@@ -17,20 +17,20 @@ export class ShowTeachersComponent implements OnInit {
     private route: ActivatedRoute,
     private httpService: HttpService
   ) {}
-  base_url = this.httpService.base_url;
+  baseUrl = this.httpService.baseUrl;
   teachers: Array<ITeacherView>;
   departmentId: string;
   ngOnInit(): void {
     this.get_teachers();
   }
 
-  get_teachers() {
+  get_teachers(): void {
     this.route.queryParams.subscribe((obj) => {
-      this.departmentId = obj['DepartmentId'];
+      this.departmentId = obj.DepartmentId;
     });
     const paramss = new HttpParams().set('DepartmentId', this.departmentId);
     return this.http
-      .get(this.base_url + 'GetAllDepartmentTeachers', { params: paramss })
+      .get(this.baseUrl + 'GetAllDepartmentTeachers', { params: paramss })
       .subscribe(
         (response: Array<ITeacherView>) => {
           this.teachers = response;

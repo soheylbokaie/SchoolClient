@@ -27,24 +27,24 @@ export class CoursesControllComponent implements OnInit {
     private router: Router,
     private location: Location
   ) {}
-  base_url = this.httpService.base_url;
+  baseUrl = this.httpService.baseUrl;
   courseId: string;
   course: ICourse;
   idtoken: string;
-  editmode: boolean = false;
+  editmode = false;
   editForm: FormGroup;
 
   ngOnInit(): void {
-    this.courseId = this.route.snapshot.params['id'];
+    this.courseId = this.route.snapshot.params.id;
 
     this.GetCourse();
 
     this.get_Authorize();
   }
 
-  GetCourse() {
+  GetCourse(): void {
     this.http
-      .get(this.base_url + 'api/GetCourse/' + this.courseId)
+      .get(this.baseUrl + 'api/GetCourse/' + this.courseId)
       .subscribe((params: ICourse) => {
         this.course = params[0];
         this.formEditInit();
@@ -57,9 +57,9 @@ export class CoursesControllComponent implements OnInit {
     });
   }
 
-  deleteCourse() {
+  deleteCourse(): void {
     this.http
-      .delete(this.base_url + 'deletecourse/' + this.courseId, {
+      .delete(this.baseUrl + 'deletecourse/' + this.courseId, {
         headers: { Authorization: 'Bearer ' + this.idtoken },
         responseType: 'text',
       })
@@ -73,7 +73,7 @@ export class CoursesControllComponent implements OnInit {
         }
       );
   }
-  formEditInit() {
+  formEditInit(): void {
     this.editForm = new FormGroup({
       courseName: new FormControl(this.course.courseName, [
         Validators.required,
@@ -85,7 +85,7 @@ export class CoursesControllComponent implements OnInit {
       endDate: new FormControl('', [Validators.required]),
     });
   }
-  editCourse() {
+  editCourse(): void {
     const temp: IUpdateCourse = {
       courseName: this.editForm.get('courseName').value,
       courseDescription: this.editForm.get('courseDescription').value,
@@ -94,7 +94,7 @@ export class CoursesControllComponent implements OnInit {
     };
 
     this.http
-      .put(this.base_url + 'updatecourse/' + this.courseId, temp, {
+      .put(this.baseUrl + 'updatecourse/' + this.courseId, temp, {
         headers: { Authorization: 'Bearer ' + this.idtoken },
       })
       .subscribe((response) => {
@@ -103,7 +103,7 @@ export class CoursesControllComponent implements OnInit {
       });
   }
 
-  back() {
+  back(): void {
     this.httpService.back();
   }
 }

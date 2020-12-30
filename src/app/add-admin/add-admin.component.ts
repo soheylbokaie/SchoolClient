@@ -23,14 +23,14 @@ export class AddAdminComponent implements OnInit {
   ) {}
   addForm: FormGroup;
   idtoken: string;
-  base_url = this.httpService.base_url;
+  baseUrl = this.httpService.baseUrl;
 
   ngOnInit(): void {
     this.get_Authorize();
     this.AddformInit();
   }
 
-  AddformInit() {
+  AddformInit(): void {
     this.addForm = new FormGroup({
       userName: new FormControl('', [Validators.required]),
       password: new FormControl('', [
@@ -59,9 +59,9 @@ export class AddAdminComponent implements OnInit {
       userName: this.addForm.get('userName').value,
       password: this.addForm.get('password').value,
     };
-    if (this.addForm.status == 'VALID') {
+    if (this.addForm.status === 'VALID') {
       this.http
-        .post(this.base_url + 'api/AdminRegister', temp, {
+        .post(this.baseUrl + 'api/AdminRegister', temp, {
           headers: { Authorization: 'Bearer ' + this.idtoken },
         })
         .subscribe(
@@ -71,7 +71,7 @@ export class AddAdminComponent implements OnInit {
             this.router.navigate(['/admin-panel']);
           },
           (error) => {
-            let errorMessage: string = '';
+            let errorMessage: string;
             switch (error.status) {
               case 403 || 401:
                 errorMessage = 'you are not allowed to do that !';

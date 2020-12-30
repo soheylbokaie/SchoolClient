@@ -21,11 +21,11 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.setCurrentUser();
   }
-  setCurrentUser() {
+  setCurrentUser(): void {
     if (localStorage.getItem('user') != null) {
       let user: ILoginResp = JSON.parse(localStorage.getItem('user'));
       if (this.tokenService.tokenExpired(user.token)) {
-        user = this.userService.refreshToken(user)
+        user = this.userService.refreshToken(user);
       }
       this.currentUser$ = this.userService.currentUser$;
       this.userService.setCurrentUser(user);

@@ -8,11 +8,10 @@ import { UserService } from './user.service';
 })
 export class HttpService {
   constructor(private location: Location) {}
-  base_url = 'https://localhost:5001/';
+  baseUrl = 'https://localhost:5001/';
   departments: string[];
   idtoken: string;
-  public get_url_no_params(api_link: string) {}
-  back() {
+  back(): void {
     this.location.back();
   }
 }

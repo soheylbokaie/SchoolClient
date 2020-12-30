@@ -53,7 +53,7 @@ export class AdminPanelDepartmentsComponent implements OnInit {
   editMode = false;
   editElement: number = null;
 
-  base_url = this.httpService.base_url;
+  baseUrl = this.httpService.baseUrl;
   ngOnInit(): void {
     this.GetallDepartments();
     this.formAddInit();
@@ -74,7 +74,7 @@ export class AdminPanelDepartmentsComponent implements OnInit {
         .set('PageNumber', this.pagingInfop.currentPages.toString())
         .set('PageSize', this.pagingInfop.pageSize.toString());
       this.http
-        .get(this.base_url + 'GetAlldepartments', { params: paramss })
+        .get(this.baseUrl + 'GetAlldepartments', { params: paramss })
         .subscribe(
           (response: IResponseDepartment) => {
             this.departments = response.departments;
@@ -119,7 +119,7 @@ export class AdminPanelDepartmentsComponent implements OnInit {
 
   delete_item(): void {
     this.http
-      .delete(this.base_url + 'deletedepartment/' + this.deletItem, {
+      .delete(this.baseUrl + 'deletedepartment/' + this.deletItem, {
         headers: { Authorization: 'Bearer ' + this.idtoken },
         responseType: 'text',
       })
@@ -141,7 +141,7 @@ export class AdminPanelDepartmentsComponent implements OnInit {
     };
     if (this.addForm.get('name').hasError) {
       this.http
-        .post(this.base_url + 'AddDepartment', name, {
+        .post(this.baseUrl + 'AddDepartment', name, {
           headers: { Authorization: 'Bearer ' + this.idtoken },
           responseType: 'text',
         })
@@ -177,7 +177,7 @@ export class AdminPanelDepartmentsComponent implements OnInit {
       name: this.editName.nativeElement.value,
     };
     this.http
-      .put(this.base_url + 'updatedepartment/' + this.editElement, name, {
+      .put(this.baseUrl + 'updatedepartment/' + this.editElement, name, {
         headers: { Authorization: 'Bearer ' + this.idtoken },
       })
       .subscribe(

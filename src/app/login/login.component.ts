@@ -18,7 +18,7 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   currentUser$: Observable<IUSer>;
-  baseurl: string = 'https://localhost:5001/';
+  baseurl = 'https://localhost:5001/';
   constructor(
     private http: HttpClient,
     private userService: UserService,
@@ -30,18 +30,18 @@ export class LoginComponent implements OnInit {
     this.currentUser$ = this.userService.currentUser$;
   }
 
-  formInit() {
+  formInit(): void {
     this.loginForm = new FormGroup({
       username: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required]),
     });
   }
 
-  logout() {
+  logout(): void {
     this.userService.logout();
   }
 
-  login() {
+  login(): void {
     const user: IUserLogin = {
       username: this.loginForm.get('username').value,
       password: this.loginForm.get('password').value,
@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
     this.userService.login(user);
   }
 
-  public decode_jwt() {
+  public decode_jwt(): void {
     this.userService.decode_jwt();
   }
 }

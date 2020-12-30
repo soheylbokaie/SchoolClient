@@ -31,7 +31,7 @@ export class StudentControllComponent implements OnInit {
   count: number;
   deleteID: string;
   //
-  base_url = this.httpService.base_url;
+  baseUrl = this.httpService.baseUrl;
   pagingInfop: IPaging;
   students: IStudentView[];
   mode = false;
@@ -83,7 +83,7 @@ export class StudentControllComponent implements OnInit {
 
     if (this.addForm.hasError) {
       this.http
-        .post(this.base_url + 'api/StudentRegister', temp, {
+        .post(this.baseUrl + 'api/StudentRegister', temp, {
           headers: { Authorization: 'Bearer ' + this.idtoken },
         })
         .subscribe(
@@ -116,7 +116,7 @@ export class StudentControllComponent implements OnInit {
         // .set('PageSize', this.pagingInfop.pageSize.toString())
         .set('DepartmentId', this.depid);
       this.http
-        .get(this.base_url + 'GetAllDepartmentStudents', { params: paramss })
+        .get(this.baseUrl + 'GetAllDepartmentStudents', { params: paramss })
         .subscribe(
           (response: IStudentView[]) => {
             this.students = response;

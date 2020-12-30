@@ -32,7 +32,7 @@ export class TeacherControllComponent implements OnInit {
   count: number;
   deleteID: string;
   //
-  base_url = this.httpService.base_url;
+  baseUrl = this.httpService.baseUrl;
   pagingInfop: IPaging;
   teachers: ITeacherView[];
   mode = false;
@@ -84,7 +84,7 @@ export class TeacherControllComponent implements OnInit {
 
     if (this.addForm.hasError) {
       this.http
-        .post(this.base_url + 'api/TeacherRegister', temp, {
+        .post(this.baseUrl + 'api/TeacherRegister', temp, {
           headers: { Authorization: 'Bearer ' + this.idtoken },
         })
         .subscribe(
@@ -114,7 +114,7 @@ export class TeacherControllComponent implements OnInit {
       };
       const paramss = new HttpParams().set('DepartmentId', this.depid);
       this.http
-        .get(this.base_url + 'GetAllDepartmentTeachers', { params: paramss })
+        .get(this.baseUrl + 'GetAllDepartmentTeachers', { params: paramss })
         .subscribe(
           (response: ITeacherView[]) => {
             this.teachers = response;

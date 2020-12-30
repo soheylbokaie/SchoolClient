@@ -30,7 +30,7 @@ export class AdminPanelCoursesComponent implements OnInit {
     private httpService: HttpService
   ) {}
 
-  base_url = this.httpService.base_url;
+  baseUrl = this.httpService.baseUrl;
   pagingInfop: IPaging;
   courses: ICourse[];
   mode = false;
@@ -78,7 +78,7 @@ export class AdminPanelCoursesComponent implements OnInit {
     console.log(JSON.stringify(temp));
     if (this.addForm.hasError) {
       this.http
-        .post(this.base_url + 'AddCourse', temp, {
+        .post(this.baseUrl + 'AddCourse', temp, {
           headers: { Authorization: 'Bearer ' + this.idtoken },
         })
         .subscribe(
@@ -110,7 +110,7 @@ export class AdminPanelCoursesComponent implements OnInit {
         .set('PageNumber', this.pagingInfop.currentPages.toString())
         .set('PageSize', this.pagingInfop.pageSize.toString());
       this.http
-        .get(this.base_url + 'GetAllCourses', { params: paramss })
+        .get(this.baseUrl + 'GetAllCourses', { params: paramss })
         .subscribe(
           (response: IResponseCourse) => {
             this.courses = response.courses;

@@ -30,12 +30,12 @@ export class UserService {
     private httpService: HttpService,
     private toaster: ToastrService
   ) {}
-  base_url = this.httpService.base_url;
+  baseUrl = this.httpService.baseUrl;
 
-  public login(model: IUserLogin) {
-    return this.http.post(this.base_url + 'api/login', model).subscribe(
+  public login(model: IUserLogin): void {
+    return this.http.post(this.baseUrl + 'api/login', model).subscribe(
       (response: ILoginResp) => {
-        if (response['success']) {
+        if (response.success) {
           localStorage.setItem('user', JSON.stringify(response));
           this.currentUserSource.next(this.tokenService.toUser(response));
           this.Token.next(response);
@@ -50,7 +50,7 @@ export class UserService {
     );
   }
 
-  setCurrentUser(resp: ILoginResp) {
+  setCurrentUser(resp: ILoginResp): void {
     this.Token.next(resp);
     this.currentUserSource.next(this.tokenService.toUser(resp));
   }
@@ -62,7 +62,7 @@ export class UserService {
       token: user.token,
     };
     this.http
-      .post(this.base_url + 'api/refreshToken', temp)
+      .post(this.baseUrl + 'api/refreshToken', temp)
       .subscribe((response: ILoginResp) => {
         console.log(response);
         res = response;
@@ -70,13 +70,13 @@ export class UserService {
     return res;
   }
 
-  logout() {
+  logout(): void {
     this.Token.next(null);
     this.currentUserSource.next(null);
     localStorage.removeItem('user');
   }
 
-  public decode_jwt() {
+  public decode_jwt(): IUSer | null {
     let user: IUSer | null = null;
     this.currentToken$.subscribe((res: ILoginResp) => {
       if (res != null) {
@@ -84,9 +84,9 @@ export class UserService {
           console.log('token is valid');
           const temp = this.tokenService.getUserId(res.token);
           user = {
-            id: temp['id'],
-            name: temp['name'],
-            role: temp['role'][0],
+            id: temp.id,
+            name: temp.name,
+            role: temp.role[0],
           };
         } else {
           console.log('token has expired');

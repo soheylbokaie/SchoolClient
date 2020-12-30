@@ -84,7 +84,7 @@ export class TeacherDetailsComponent implements OnInit {
   get_teacher_detail(): void {
     this.http
       .get(
-        this.httpService.base_url + 'api/getTeacher/' + this.teacher.teacherId
+        this.httpService.baseUrl + 'api/getTeacher/' + this.teacher.teacherId
       )
       .subscribe((response: ITeacherView) => {
         this.teacher = response;
@@ -106,7 +106,7 @@ export class TeacherDetailsComponent implements OnInit {
       .set('PageNumber', this.pagingInfop.currentPages.toString())
       .set('PageSize', this.pagingInfop.pageSize.toString());
     this.http
-      .get(this.httpService.base_url + 'GetAllCourses', { params: paramss })
+      .get(this.httpService.baseUrl + 'GetAllCourses', { params: paramss })
       .subscribe(
         (response: IResponseCourse) => {
           this.allcourses = response.courses;
@@ -126,7 +126,7 @@ export class TeacherDetailsComponent implements OnInit {
   get_teacher_courses(): void {
     this.http
       .get(
-        this.httpService.base_url +
+        this.httpService.baseUrl +
           'TeacherTimeTable/' +
           this.teacher.teacherId,
         {
@@ -140,7 +140,7 @@ export class TeacherDetailsComponent implements OnInit {
 
   drop_course(courseId: string): void {
     this.http
-      .delete(this.httpService.base_url + 'DeleteTeacherCourse/' + courseId, {
+      .delete(this.httpService.baseUrl + 'DeleteTeacherCourse/' + courseId, {
         headers: { Authorization: 'Bearer ' + this.idtoken },
         responseType: 'text',
       })
@@ -166,7 +166,7 @@ export class TeacherDetailsComponent implements OnInit {
       userId: this.teacher.teacherId,
     };
     this.http
-      .post(this.httpService.base_url + 'api/Add/TeacherCourse', course, {
+      .post(this.httpService.baseUrl + 'api/Add/TeacherCourse', course, {
         headers: { Authorization: 'Bearer ' + this.idtoken },
       })
       .subscribe(
@@ -213,7 +213,7 @@ export class TeacherDetailsComponent implements OnInit {
     };
     const paramss = new HttpParams().set('userId', this.teacher.teacherId);
     this.http
-      .put(this.httpService.base_url + 'api/UpdateTeacher', teacher, {
+      .put(this.httpService.baseUrl + 'api/UpdateTeacher', teacher, {
         params: paramss,
         headers: { Authorization: 'Bearer ' + this.idtoken },
       })
