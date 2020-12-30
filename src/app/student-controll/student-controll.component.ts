@@ -141,7 +141,7 @@ export class StudentControllComponent implements OnInit {
     });
   }
 
-  delete_item() {
+  delete_item(): void {
     console.log(this.deleteID);
   }
 }

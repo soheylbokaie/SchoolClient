@@ -102,7 +102,7 @@ export class TeacherControllComponent implements OnInit {
       this.toastr.error('form is not valid', 'Error');
     }
   }
-  public GetAllTeachers() {
+  public GetAllTeachers(): void {
     this.route.queryParams.subscribe((obj) => {
       this.pagingInfop = {
         currentPages: !!obj.PageNumber ? +obj.PageNumber : 1,
@@ -127,7 +127,7 @@ export class TeacherControllComponent implements OnInit {
     });
   }
 
-  delete_item() {
+  delete_item(): void {
     console.log(this.deleteID);
   }
 }
