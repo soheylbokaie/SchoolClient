@@ -43,14 +43,14 @@ export class AdminPanelDepartmentsComponent implements OnInit {
     private router: Router,
     private httpService: HttpService
   ) {}
-  @ViewChild('edit_name') edit_name: ElementRef;
+  @ViewChild('edit_name') editName: ElementRef;
   addForm: FormGroup;
   departments: IDepartment[];
   pagingInfop: IPaging;
-  mode: boolean = true;
+  mode = true;
   deletItem: string = null;
   idtoken: string;
-  editMode: boolean = false;
+  editMode = false;
   editElement: number = null;
 
   base_url = this.httpService.base_url;
@@ -60,11 +60,11 @@ export class AdminPanelDepartmentsComponent implements OnInit {
     this.get_Authorize();
   }
 
-  public GetallDepartments() {
+  public GetallDepartments(): void {
     this.route.queryParams.subscribe((obj) => {
       this.pagingInfop = {
-        currentPages: !!obj['PageNumber'] ? +obj['PageNumber'] : 1,
-        pageSize: !!obj['PageSize'] ? +obj['PageSize'] : 10,
+        currentPages: !!obj.PageNumber ? +obj.PageNumber : 1,
+        pageSize: !!obj.PageSize ? +obj.PageSize : 10,
         nextLink: '',
         prevLink: '',
         totalCount: 0,
@@ -77,8 +77,8 @@ export class AdminPanelDepartmentsComponent implements OnInit {
         .get(this.base_url + 'GetAlldepartments', { params: paramss })
         .subscribe(
           (response: IResponseDepartment) => {
-            this.departments = response['departments'];
-            this.pagingInfop = response['pagingInfo'];
+            this.departments = response.departments;
+            this.pagingInfop = response.pagingInfo;
             if (this.pagingInfop.totalPages < this.pagingInfop.currentPages) {
               paramss.set('PageNumber', this.pagingInfop.totalPages.toString());
               this.router.navigate([], {
@@ -96,16 +96,20 @@ export class AdminPanelDepartmentsComponent implements OnInit {
         );
     });
   }
-  counter(i: number) {
-    let list = [];
+  counter(i: number): Array<string | number> {
+    let list: Array<string | number> = [];
     if (i - 3 > 0) {
       list.push('..');
     }
     for (let index = i - 2; index <= i; index++) {
-      if (index > 0) list.push(index);
+      if (index > 0) {
+        list.push(index);
+      }
     }
     for (let index = i + 1; index < i + 3; index++) {
-      if (index <= this.pagingInfop.totalPages) list.push(index);
+      if (index <= this.pagingInfop.totalPages) {
+        list.push(index);
+      }
     }
     if (i + 2 < this.pagingInfop.totalPages) {
       list.push('..');
@@ -113,7 +117,7 @@ export class AdminPanelDepartmentsComponent implements OnInit {
     return list;
   }
 
-  delete_item() {
+  delete_item(): void {
     this.http
       .delete(this.base_url + 'deletedepartment/' + this.deletItem, {
         headers: { Authorization: 'Bearer ' + this.idtoken },
@@ -131,7 +135,7 @@ export class AdminPanelDepartmentsComponent implements OnInit {
       });
   }
 
-  add_item() {
+  add_item(): void {
     const name: IAddDepartment = {
       name: this.addForm.get('name').value,
     };
@@ -156,21 +160,21 @@ export class AdminPanelDepartmentsComponent implements OnInit {
     }
   }
 
-  formAddInit() {
+  formAddInit(): void {
     this.addForm = new FormGroup({
       name: new FormControl('', [Validators.required]),
     });
   }
 
-  get_Authorize() {
+  get_Authorize(): void {
     this.userService.currentToken$.subscribe((res) => {
       this.idtoken = res.token;
     });
   }
 
-  editelm() {
+  editelm(): void {
     const name: IEditDepartment = {
-      name: this.edit_name.nativeElement.value,
+      name: this.editName.nativeElement.value,
     };
     this.http
       .put(this.base_url + 'updatedepartment/' + this.editElement, name, {
