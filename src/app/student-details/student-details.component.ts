@@ -91,7 +91,7 @@ export class StudentDetailsComponent implements OnInit {
       .subscribe((response: IStudentView) => {
         this.student = response;
         console.log(response);
-        if (response.photo != null)
+        if (response.photo)
           this.profile_photo =
             this.userService.base_url +
             'api/getStudentprofile/' +
