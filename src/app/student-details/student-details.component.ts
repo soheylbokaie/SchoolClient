@@ -91,11 +91,12 @@ export class StudentDetailsComponent implements OnInit {
       .subscribe((response: IStudentView) => {
         this.student = response;
         console.log(response);
-        if (response.photo)
+        if (response.photo != null) {
           this.profile_photo =
             this.userService.base_url +
             'api/getStudentprofile/' +
             this.student.id;
+        }
         this.formEditInit();
       });
   }
