@@ -36,17 +36,17 @@ export class TeacherDetailsComponent implements OnInit {
   idtoken: string;
   courses: ICourse[];
   allcourses: ICourse[];
-  available_courses: ICourse[] = [];
-  mode: boolean = false;
+  availableCourses: ICourse[] = [];
+  mode = false;
   editForm: FormGroup;
   deleteitem: string;
-  addcoursemode: boolean = false;
+  addcoursemode = false;
   addform: FormGroup;
   pagingInfop: IPaging;
-  teachermode: boolean = false;
+  teachermode = false;
 
   ngOnInit(): void {
-    const params = this.route.snapshot.params['teacherid'];
+    const params = this.route.snapshot.params.teacherid;
     if (params != null) {
       this.set_teacher(params);
       this.teachermode = false;
@@ -61,24 +61,24 @@ export class TeacherDetailsComponent implements OnInit {
     this.formAddInit();
   }
 
-  get_Authorize() {
+  get_Authorize(): void {
     this.userService.currentToken$.subscribe((res) => {
       this.idtoken = res?.token;
     });
   }
   set_teacher(
     id: string,
-    email: string = null,
-    teacherName: string = null,
+    Email: string = null,
+    teachername: string = null,
     dep: string = null,
-    userName: string = null
-  ) {
+    username: string = null
+  ): void {
     this.teacher = {
-      teacherName: teacherName,
-      email: email,
+      teacherName: teachername,
+      email: Email,
       teacherId: id,
       departmentName: dep,
-      userName: userName,
+      userName: username,
     };
   }
   get_teacher_detail() {
@@ -91,7 +91,7 @@ export class TeacherDetailsComponent implements OnInit {
         this.editforminit();
       });
   }
-  get_all_courses() {
+  get_all_courses(): void {
     this.route.queryParams.subscribe((obj) => {
       this.pagingInfop = {
         currentPages: 1,
@@ -109,11 +109,11 @@ export class TeacherDetailsComponent implements OnInit {
       .get(this.httpService.base_url + 'GetAllCourses', { params: paramss })
       .subscribe(
         (response: IResponseCourse) => {
-          this.allcourses = response['courses'];
-          this.pagingInfop = response['pagingInfo'];
+          this.allcourses = response.courses;
+          this.pagingInfop = response.pagingInfo;
           this.allcourses.forEach((element) => {
-            if (element.department == this.teacher.departmentName) {
-              this.available_courses.push(element);
+            if (element.department === this.teacher.departmentName) {
+              this.availableCourses.push(element);
             }
           });
         },
@@ -123,7 +123,7 @@ export class TeacherDetailsComponent implements OnInit {
       );
   }
 
-  get_teacher_courses() {
+  get_teacher_courses(): void {
     this.http
       .get(
         this.httpService.base_url +
@@ -138,9 +138,9 @@ export class TeacherDetailsComponent implements OnInit {
       });
   }
 
-  drop_course(course_id: String) {
+  drop_course(courseId: string): void {
     this.http
-      .delete(this.httpService.base_url + 'DeleteTeacherCourse/' + course_id, {
+      .delete(this.httpService.base_url + 'DeleteTeacherCourse/' + courseId, {
         headers: { Authorization: 'Bearer ' + this.idtoken },
         responseType: 'text',
       })
@@ -155,12 +155,12 @@ export class TeacherDetailsComponent implements OnInit {
         }
       );
   }
-  formAddInit() {
+  formAddInit(): void {
     this.addform = new FormGroup({
       course: new FormControl('', [Validators.required]),
     });
   }
-  add_course(coursecode: string) {
+  add_course(coursecode: string): void {
     const course: IAddCourseStudent = {
       courseId: coursecode,
       userId: this.teacher.teacherId,
@@ -175,7 +175,7 @@ export class TeacherDetailsComponent implements OnInit {
           this.get_teacher_courses();
         },
         (error) => {
-          if (error.error == 'Has Clash') {
+          if (error.error === 'Has Clash') {
             this.toaster.error(
               'this course has clash with other courses ',
               'clash'
@@ -187,23 +187,27 @@ export class TeacherDetailsComponent implements OnInit {
       );
   }
 
-  counter(i: number) {
-    let list = [];
+  counter(i: number): Array<number | string> {
+    let list: Array<number | string> = [];
     if (i - 3 > 0) {
       list.push('..');
     }
     for (let index = i - 2; index <= i; index++) {
-      if (index > 0) list.push(index);
+      if (index > 0) {
+        list.push(index);
+      }
     }
     for (let index = i + 1; index < i + 3; index++) {
-      if (index <= this.pagingInfop.totalPages) list.push(index);
+      if (index <= this.pagingInfop.totalPages) {
+        list.push(index);
+      }
     }
     if (i + 2 < this.pagingInfop.totalPages) {
       list.push('..');
     }
     return list;
   }
-  editTeacher() {
+  editTeacher(): void {
     const teacher: ITeacherEdit = {
       teacherName: this.editForm.get('teacherName').value,
     };
@@ -228,7 +232,7 @@ export class TeacherDetailsComponent implements OnInit {
         }
       );
   }
-  editforminit() {
+  editforminit(): void {
     this.editForm = new FormGroup({
       teacherName: new FormControl(this.teacher.teacherName, [
         Validators.required,
