@@ -37,7 +37,7 @@ export class StudentDetailsComponent implements OnInit {
     private userService: UserService,
     private toaster: ToastrService
   ) {}
-  profile_photo = 'assets/undraw_profile.svg';
+  profilePhoto = 'assets/undraw_profile.svg';
   page = 1;
   student: IStudentView;
   idtoken: string;
@@ -52,6 +52,8 @@ export class StudentDetailsComponent implements OnInit {
   pagingInfop: IPaging;
   studentmode = false;
   editmode = false;
+  fileToUpload: null | File;
+
   ngOnInit(): void {
     const params = this.route.snapshot.params['studentid'];
     if (params != null) {
@@ -92,7 +94,7 @@ export class StudentDetailsComponent implements OnInit {
         this.student = response;
         console.log(response);
         if (response.photo != null) {
-          this.profile_photo =
+          this.profilePhoto =
             this.userService.base_url +
             'api/getStudentprofile/' +
             this.student.id;
@@ -142,9 +144,9 @@ export class StudentDetailsComponent implements OnInit {
       });
   }
 
-  drop_course(course_id: string): void {
+  drop_course(courseId: string): void {
     this.http
-      .delete(this.httpService.base_url + 'DeleteStudentCourse/' + course_id, {
+      .delete(this.httpService.base_url + 'DeleteStudentCourse/' + courseId, {
         headers: { Authorization: 'Bearer ' + this.idtoken },
         responseType: 'text',
       })
@@ -219,7 +221,7 @@ export class StudentDetailsComponent implements OnInit {
   }
   edit_item() {
     let formData = new FormData();
-    formData.append('Photo', this.file_to_upload);
+    formData.append('Photo', this.fileToUpload);
     formData.append('StudentName', this.editform.get('name').value);
     const paramss = new HttpParams().set('userId', this.student.id);
     this.http
@@ -232,9 +234,8 @@ export class StudentDetailsComponent implements OnInit {
         window.location.reload();
       });
   }
-  file_to_upload: null | File;
   upload(event): void {
     const file = (event.target as HTMLInputElement).files[0];
-    this.file_to_upload = file;
+    this.fileToUpload = file;
   }
 }
