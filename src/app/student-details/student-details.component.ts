@@ -37,7 +37,7 @@ export class StudentDetailsComponent implements OnInit {
     private userService: UserService,
     private toaster: ToastrService
   ) {}
-  profile_photo: string = 'assets/undraw_profile.svg';
+  profile_photo = 'assets/undraw_profile.svg';
   page = 1;
   student: IStudentView;
   idtoken: string;
@@ -46,12 +46,12 @@ export class StudentDetailsComponent implements OnInit {
   available_courses: ICourse[] = [];
   mode: boolean;
   deleteitem: string;
-  addcoursemode: boolean = false;
+  addcoursemode = false;
   addform: FormGroup;
   editform: FormGroup;
   pagingInfop: IPaging;
-  studentmode: boolean = false;
-  editmode: boolean = false;
+  studentmode = false;
+  editmode = false;
   ngOnInit(): void {
     const params = this.route.snapshot.params['studentid'];
     if (params != null) {
@@ -68,24 +68,24 @@ export class StudentDetailsComponent implements OnInit {
     this.formAddInit();
   }
 
-  get_Authorize() {
+  get_Authorize(): void {
     this.userService.currentToken$.subscribe((res) => {
       this.idtoken = res.token;
     });
   }
   set_student(
-    id: string,
+    Id: string,
     studentname: string = null,
     departmentname: string = null
-  ) {
+  ): void {
     this.student = {
-      id: id,
+      id: Id,
       studentName: studentname,
       departmentName: departmentname,
       photo: null,
     };
   }
-  get_student_detail() {
+  get_student_detail(): void {
     this.http
       .get(this.httpService.base_url + 'api/getStudent/' + this.student.id)
       .subscribe((response: IStudentView) => {
@@ -100,7 +100,7 @@ export class StudentDetailsComponent implements OnInit {
         this.formEditInit();
       });
   }
-  get_all_courses() {
+  get_all_courses(): void {
     this.route.queryParams.subscribe((obj) => {
       this.pagingInfop = {
         currentPages: 1,
@@ -121,11 +121,10 @@ export class StudentDetailsComponent implements OnInit {
           this.allcourses = response['courses'];
           this.pagingInfop = response['pagingInfo'];
           this.allcourses.forEach((element) => {
-            if (element.department == this.student.departmentName) {
+            if (element.department === this.student.departmentName) {
               this.available_courses.push(element);
             }
           });
-          console.log(this.available_courses);
         },
         (error) => {
           console.log(error);
@@ -133,7 +132,7 @@ export class StudentDetailsComponent implements OnInit {
       );
   }
 
-  get_student_courses() {
+  get_student_courses(): void {
     this.http
       .get(this.httpService.base_url + 'StudentTimeTable/' + this.student.id, {
         headers: { Authorization: 'Bearer ' + this.idtoken },
@@ -143,7 +142,7 @@ export class StudentDetailsComponent implements OnInit {
       });
   }
 
-  drop_course(course_id: String) {
+  drop_course(course_id: string): void {
     this.http
       .delete(this.httpService.base_url + 'DeleteStudentCourse/' + course_id, {
         headers: { Authorization: 'Bearer ' + this.idtoken },
@@ -159,12 +158,12 @@ export class StudentDetailsComponent implements OnInit {
         }
       );
   }
-  formAddInit() {
+  formAddInit(): void {
     this.addform = new FormGroup({
       course: new FormControl('', [Validators.required]),
     });
   }
-  add_course(coursecode: string) {
+  add_course(coursecode: string): void {
     const course: IAddCourseStudent = {
       courseId: coursecode,
       userId: this.student.id,
@@ -179,7 +178,7 @@ export class StudentDetailsComponent implements OnInit {
           this.get_student_courses();
         },
         (error) => {
-          if (error.error == 'Has Clash') {
+          if (error.error === 'Has Clash') {
             this.toaster.error(
               'this course has clash with other courses ',
               'clash'
@@ -191,16 +190,20 @@ export class StudentDetailsComponent implements OnInit {
       );
   }
 
-  counter(i: number) {
-    let list = [];
+  counter(i: number): Array<number | string> {
+    let list: Array<number | string> = [];
     if (i - 3 > 0) {
       list.push('..');
     }
     for (let index = i - 2; index <= i; index++) {
-      if (index > 0) list.push(index);
+      if (index > 0) {
+        list.push(index);
+      }
     }
     for (let index = i + 1; index < i + 3; index++) {
-      if (index <= this.pagingInfop.totalPages) list.push(index);
+      if (index <= this.pagingInfop.totalPages) {
+        list.push(index);
+      }
     }
     if (i + 2 < this.pagingInfop.totalPages) {
       list.push('..');
@@ -208,14 +211,14 @@ export class StudentDetailsComponent implements OnInit {
     return list;
   }
 
-  formEditInit() {
+  formEditInit(): void {
     this.editform = new FormGroup({
       name: new FormControl(this.student.studentName, [Validators.required]),
       picture: new FormControl('', [Validators.required]),
     });
   }
   edit_item() {
-    var formData = new FormData();
+    let formData = new FormData();
     formData.append('Photo', this.file_to_upload);
     formData.append('StudentName', this.editform.get('name').value);
     const paramss = new HttpParams().set('userId', this.student.id);
@@ -229,8 +232,8 @@ export class StudentDetailsComponent implements OnInit {
         window.location.reload();
       });
   }
-  file_to_upload = null;
-  upload(event) {
+  file_to_upload: null | File;
+  upload(event): void {
     const file = (event.target as HTMLInputElement).files[0];
     this.file_to_upload = file;
   }
