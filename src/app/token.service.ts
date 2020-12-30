@@ -9,7 +9,7 @@ import { ILoginResp, IUSer } from './Interfaces/app-interface';
 export class TokenService {
   constructor() {}
 
-  public tokenExpired(token: string) {
+  public tokenExpired(token: string): boolean {
     const expiry = JSON.parse(atob(token.split('.')[1])).exp;
     return Math.floor(new Date().getTime() / 1000) >= expiry;
   }

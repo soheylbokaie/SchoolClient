@@ -101,7 +101,7 @@ export class StudentControllComponent implements OnInit {
       this.toastr.error('form is not valid', 'Error');
     }
   }
-  public GetAllStudents() {
+  public GetAllStudents(): void {
     this.route.queryParams.subscribe((obj) => {
       this.pagingInfop = {
         currentPages: !!obj.PageNumber ? +obj.PageNumber : 1,

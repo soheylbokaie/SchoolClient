@@ -21,5 +21,5 @@ export function Digit(c: FormControl) {
 export function ConfirmCheck(c: FormControl) {
   let confirmPassword = c.value;
   let password = c?.parent?.controls['password']?.value;
-  return confirmPassword == password ? null : { matched: true };
+  return confirmPassword === password ? null : { matched: true };
 }

@@ -17,7 +17,7 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
     private http: HttpClient
   ) {}
   profileImage = 'assets/undraw_profile.svg';
-  wink_icon: IconDefinition;
+  winkIcon: IconDefinition;
   name: string;
   currentUser$: Observable<IUSer>;
   role: string;
@@ -25,7 +25,7 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {}
 
   ngOnInit(): void {
-    this.wink_icon = faLaughWink;
+    this.winkIcon = faLaughWink;
     this.userService.currentUser$.subscribe((params) => {
       this.name = params?.name;
       this.role = params?.role;
