@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AddAdminComponent } from './add-admin/add-admin.component';
+import { AdminGuardGuard } from './admin-guard.guard';
 import { AdminPanelCoursesComponent } from './admin-panel-courses/admin-panel-courses.component';
 import { AdminPanelDepartmentsComponent } from './admin-panel-departments/admin-panel-departments.component';
 import { AdminPanelStudentsComponent } from './admin-panel-students/admin-panel-students.component';
@@ -27,10 +28,8 @@ const routes: Routes = [
     component: ContainerComponent,
     children: [
       { path: '', component: HomeComponent },
-      { path: 'register', component: RegisterComponent },
       { path: 'login', component: LoginComponent },
       { path: 'Departments', component: TaechersComponent },
-      { path: 'all-teachers', component: ShowTeachersComponent },
       { path: '404-error', component: NotFoundComponent },
     ],
   },
@@ -41,25 +40,49 @@ const routes: Routes = [
     canActivate: [ControlPanelGuardGuard],
     canActivateChild: [ControlPanelGuardGuard],
     children: [
-      { path: 'Departments', component: AdminPanelDepartmentsComponent },
-      { path: 'Students', component: AdminPanelStudentsComponent },
-      { path: 'Students', component: AdminPanelStudentsComponent },
-
+      {
+        path: 'Departments',
+        canActivate: [AdminGuardGuard],
+        component: AdminPanelDepartmentsComponent,
+      },
+      {
+        path: 'Students',
+        canActivate: [AdminGuardGuard],
+        component: AdminPanelStudentsComponent,
+      },
       {
         path: 'Students/detail/:studentid',
+        canActivate: [AdminGuardGuard],
         component: StudentDetailsComponent,
       },
       {
         path: 'Students/detail',
         component: StudentDetailsComponent,
       },
-      { path: 'Students/:depid', component: StudentControllComponent },
+      {
+        path: 'Students/:depid',
+        canActivate: [AdminGuardGuard],
+        component: StudentControllComponent,
+      },
 
-      { path: 'Courses', component: AdminPanelCoursesComponent },
-      { path: 'Courses/:id', component: CoursesControllComponent },
-      { path: 'Teachers', component: AdminPanelTeachersComponent },
+      {
+        path: 'Courses',
+        canActivate: [AdminGuardGuard],
+        component: AdminPanelCoursesComponent,
+      },
+      {
+        path: 'Courses/:id',
+        canActivate: [AdminGuardGuard],
+        component: CoursesControllComponent,
+      },
+      {
+        path: 'Teachers',
+        canActivate: [AdminGuardGuard],
+        component: AdminPanelTeachersComponent,
+      },
       {
         path: 'Teachers/detail/:teacherid',
+        canActivate: [AdminGuardGuard],
         component: TeacherDetailsComponent,
       },
       {
@@ -68,7 +91,11 @@ const routes: Routes = [
       },
 
       { path: 'Teachers/:depid', component: TeacherControllComponent },
-      { path: 'register-admin', component: AddAdminComponent },
+      {
+        path: 'register-admin',
+        canActivate: [AdminGuardGuard],
+        component: AddAdminComponent,
+      },
       { path: '', component: UserProfileComponent },
     ],
   },

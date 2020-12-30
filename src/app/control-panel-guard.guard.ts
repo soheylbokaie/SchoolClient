@@ -8,6 +8,7 @@ import {
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
   UrlTree,
+  Router,
 } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
@@ -21,7 +22,9 @@ export class ControlPanelGuardGuard
   implements CanActivate, CanActivateChild, CanLoad {
   constructor(
     private userService: UserService,
-    private toaster: ToastrService
+    private toaster: ToastrService,
+    private router:Router
+
   ) {}
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -35,6 +38,7 @@ export class ControlPanelGuardGuard
       map((user) => {
         if (user) return true;
         this.toaster.info('you are not allowed');
+        this.router.navigate([''])
       })
     );
   }

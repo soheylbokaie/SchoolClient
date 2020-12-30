@@ -26,8 +26,8 @@
         </div>
       </div>
 
-      <hr class="sidebar-divider" />
-      <div class="row">
+      <hr *ngIf="studentmode" class="sidebar-divider" />
+      <div *ngIf="studentmode" class="row">
         <div class="col-auto">
           <a class="btn btn-info btn-icon-split">
             <span class="icon text-white-50">
@@ -36,7 +36,7 @@
             <span class="text">Edit</span>
           </a>
         </div>
-        <ng-container *ngIf="courses?.length < 6">
+        <ng-container *ngIf="courses?.length < 6 ">
           <div *ngIf="!addcoursemode; else cancel" class="col-auto">
             <a
               class="btn btn-success btn-icon-split"
@@ -163,7 +163,7 @@
                 <th rowspan="1" colspan="1">Course day</th>
                 <th rowspan="1" colspan="1">Course start time</th>
                 <th rowspan="1" colspan="1">Course end time</th>
-                <th rowspan="1" colspan="1"></th>
+                <th *ngIf="studentmode" rowspan="1" colspan="1"></th>
               </tr>
             </thead>
             <tbody>
@@ -180,22 +180,24 @@
                 <td colspan="1">{{ course.day }}</td>
                 <td colspan="1">{{ course.startTime }}</td>
                 <td colspan="1">{{ course.endTime }}</td>
-                <td colspan="1">
-                  <a
-                    data-toggle="modal"
-                    data-target="#deleteModal"
-                    class="btn btn-danger mr-1"
-                    (click)="deleteitem = course.courseId"
-                  >
-                    <i class="fa fa-trash"></i>
-                  </a>
-                  <a
-                    class="btn btn-success"
-                    [routerLink]="['/admin-panel/Courses/', course.courseId]"
-                  >
-                    <i class="fa fa-sign-in"></i>
-                  </a>
-                </td>
+                <ng-container *ngIf="studentmode">
+                  <td colspan="1">
+                    <a
+                      data-toggle="modal"
+                      data-target="#deleteModal"
+                      class="btn btn-danger mr-1"
+                      (click)="deleteitem = course.courseId"
+                    >
+                      <i class="fa fa-trash"></i>
+                    </a>
+                    <a
+                      class="btn btn-success"
+                      [routerLink]="['/admin-panel/Courses/', course.courseId]"
+                    >
+                      <i class="fa fa-sign-in"></i>
+                    </a>
+                  </td>
+                </ng-container>
               </tr>
             </tbody>
           </table>
@@ -204,7 +206,7 @@
     </div>
   </div>
 </ng-container>
-<ng-container *ngIf="addcoursemode">
+<ng-container *ngIf="addcoursemode  && studentmode">
   <div class="card shadow mb-4 border-bottom-info">
     <div class="card-header py-3">
       <h6 class="m-0 font-weight-bold text-primary">add Course</h6>

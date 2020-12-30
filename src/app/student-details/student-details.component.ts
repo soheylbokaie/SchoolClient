@@ -47,12 +47,15 @@ export class StudentDetailsComponent implements OnInit {
   addcoursemode: boolean = false;
   addform: FormGroup;
   pagingInfop: IPaging;
+  studentmode: boolean = false;
   ngOnInit(): void {
     const params = this.route.snapshot.params['studentid'];
     if (params != null) {
       this.set_student(params);
+      this.studentmode = false;
     } else {
       this.set_student(this.userService.decode_jwt().id);
+      this.studentmode = true;
     }
     this.get_Authorize();
     this.get_student_detail();

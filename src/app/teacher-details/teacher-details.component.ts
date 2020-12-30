@@ -43,12 +43,16 @@ export class TeacherDetailsComponent implements OnInit {
   addcoursemode: boolean = false;
   addform: FormGroup;
   pagingInfop: IPaging;
+  teachermode: boolean = false;
+
   ngOnInit(): void {
     const params = this.route.snapshot.params['teacherid'];
     if (params != null) {
       this.set_teacher(params);
+      this.teachermode = false;
     } else {
       this.set_teacher(this.userService.decode_jwt().id);
+      this.teachermode = true;
     }
     this.get_Authorize();
     this.get_teacher_detail();
