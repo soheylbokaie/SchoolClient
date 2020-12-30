@@ -16,7 +16,7 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private http: HttpClient
   ) {}
-  profile_image = 'assets/undraw_profile.svg';
+  profileImage = 'assets/undraw_profile.svg';
   wink_icon: IconDefinition;
   name: string;
   currentUser$: Observable<IUSer>;
@@ -36,7 +36,7 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
         .get(this.userService.baseUrl + 'api/getStudent/' + this.id)
         .subscribe((response: IStudentView) => {
           if (response.photo != null) {
-            this.profile_image =
+            this.profileImage =
               this.userService.baseUrl + 'api/getStudentprofile/' + this.id;
           }
         });
