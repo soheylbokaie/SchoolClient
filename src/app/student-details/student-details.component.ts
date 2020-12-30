@@ -37,7 +37,7 @@ export class StudentDetailsComponent implements OnInit {
     private userService: UserService,
     private toaster: ToastrService
   ) {}
-  profile_photo: string = 'assets/undraw_profile.svg';
+  profile_photo = 'assets/undraw_profile.svg';
   page = 1;
   student: IStudentView;
   idtoken: string;
@@ -46,14 +46,14 @@ export class StudentDetailsComponent implements OnInit {
   available_courses: ICourse[] = [];
   mode: boolean;
   deleteitem: string;
-  addcoursemode: boolean = false;
+  addcoursemode = false;
   addform: FormGroup;
   editform: FormGroup;
   pagingInfop: IPaging;
-  studentmode: boolean = false;
-  editmode: boolean = false;
+  studentmode = false;
+  editmode = false;
   ngOnInit(): void {
-    const params = this.route.snapshot.params['studentid'];
+    const params = this.route.snapshot.params.studentid;
     if (params != null) {
       this.set_student(params);
       this.studentmode = false;
@@ -79,7 +79,7 @@ export class StudentDetailsComponent implements OnInit {
     departmentname: string = null
   ) {
     this.student = {
-      id: id,
+      id,
       studentName: studentname,
       departmentName: departmentname,
       photo: null,
@@ -91,11 +91,12 @@ export class StudentDetailsComponent implements OnInit {
       .subscribe((response: IStudentView) => {
         this.student = response;
         console.log(response);
-        if (response.photo)
+        if (response.photo) {
           this.profile_photo =
             this.userService.base_url +
             'api/getStudentprofile/' +
             this.student.id;
+        }
         this.formEditInit();
       });
   }
@@ -117,8 +118,8 @@ export class StudentDetailsComponent implements OnInit {
       .get(this.httpService.base_url + 'GetAllCourses', { params: paramss })
       .subscribe(
         (response: IResponseCourse) => {
-          this.allcourses = response['courses'];
-          this.pagingInfop = response['pagingInfo'];
+          this.allcourses = response.courses;
+          this.pagingInfop = response.pagingInfo;
           this.allcourses.forEach((element) => {
             if (element.department == this.student.departmentName) {
               this.available_courses.push(element);
@@ -191,15 +192,15 @@ export class StudentDetailsComponent implements OnInit {
   }
 
   counter(i: number) {
-    let list = [];
+    const list = [];
     if (i - 3 > 0) {
       list.push('..');
     }
     for (let index = i - 2; index <= i; index++) {
-      if (index > 0) list.push(index);
+      if (index > 0) { list.push(index); }
     }
     for (let index = i + 1; index < i + 3; index++) {
-      if (index <= this.pagingInfop.totalPages) list.push(index);
+      if (index <= this.pagingInfop.totalPages) { list.push(index); }
     }
     if (i + 2 < this.pagingInfop.totalPages) {
       list.push('..');
@@ -214,7 +215,7 @@ export class StudentDetailsComponent implements OnInit {
     });
   }
   edit_item() {
-    var formData = new FormData();
+    const formData = new FormData();
     formData.append('Photo', this.file_to_upload);
     formData.append('StudentName', this.editform.get('name').value);
     const paramss = new HttpParams().set('userId', this.student.id);

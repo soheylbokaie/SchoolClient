@@ -35,7 +35,7 @@ export class UserService {
   public login(model: IUserLogin) {
     return this.http.post(this.base_url + 'api/login', model).subscribe(
       (response: ILoginResp) => {
-        if (response['success']) {
+        if (response.success) {
           localStorage.setItem('user', JSON.stringify(response));
           this.currentUserSource.next(this.tokenService.toUser(response));
           this.Token.next(response);
@@ -84,9 +84,9 @@ export class UserService {
           console.log('token is valid');
           const temp = this.tokenService.getUserId(res.token);
           user = {
-            id: temp['id'],
-            name: temp['name'],
-            role: temp['role'][0],
+            id: temp.id,
+            name: temp.name,
+            role: temp.role[0],
           };
         } else {
           console.log('token has expired');

@@ -18,7 +18,7 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   currentUser$: Observable<IUSer>;
-  baseurl: string = 'https://localhost:5001/';
+  baseurl = 'https://localhost:5001/';
   constructor(
     private http: HttpClient,
     private userService: UserService,

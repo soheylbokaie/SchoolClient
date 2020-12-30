@@ -35,13 +35,13 @@ export class TeacherControllComponent implements OnInit {
   base_url = this.httpService.base_url;
   pagingInfop: IPaging;
   teachers: ITeacherView[];
-  mode: boolean = false;
+  mode = false;
   addForm: FormGroup;
   idtoken: string;
   depid: string;
 
   ngOnInit(): void {
-    this.depid = this.route.snapshot.params['depid'];
+    this.depid = this.route.snapshot.params.depid;
     this.GetAllTeachers();
     this.formAddInit();
     this.get_Authorize();
@@ -105,8 +105,8 @@ export class TeacherControllComponent implements OnInit {
   public GetAllTeachers() {
     this.route.queryParams.subscribe((obj) => {
       this.pagingInfop = {
-        currentPages: !!obj['PageNumber'] ? +obj['PageNumber'] : 1,
-        pageSize: !!obj['PageSize'] ? +obj['PageSize'] : 10,
+        currentPages: !!obj.PageNumber ? +obj.PageNumber : 1,
+        pageSize: !!obj.PageSize ? +obj.PageSize : 10,
         nextLink: '',
         prevLink: '',
         totalCount: 0,

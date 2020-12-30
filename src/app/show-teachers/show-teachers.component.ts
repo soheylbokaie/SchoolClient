@@ -26,7 +26,7 @@ export class ShowTeachersComponent implements OnInit {
 
   get_teachers() {
     this.route.queryParams.subscribe((obj) => {
-      this.departmentId = obj['DepartmentId'];
+      this.departmentId = obj.DepartmentId;
     });
     const paramss = new HttpParams().set('DepartmentId', this.departmentId);
     return this.http

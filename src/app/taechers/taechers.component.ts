@@ -24,7 +24,7 @@ export class TaechersComponent implements OnInit {
   get_Teachers() {
     this.http.get(this.base_url + 'GetAlldepartments').subscribe(
       (response: IDepartment) => {
-        this.departments = response['departments'];
+        this.departments = response.departments;
       },
       (error) => {
         console.log(error);
