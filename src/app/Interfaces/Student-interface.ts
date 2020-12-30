@@ -10,9 +10,13 @@ export interface IStudentView {
   id: string;
   studentName: string;
   departmentName: string;
+  photo: string;
 }
 
-export interface IStudentUpdate {}
+export interface IStudentUpdate {
+  StudentName: string;
+  Photo: File;
+}
 
 export interface IAddCourseStudent {
   userId: string;

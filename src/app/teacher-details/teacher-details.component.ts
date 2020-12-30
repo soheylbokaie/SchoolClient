@@ -63,7 +63,7 @@ export class TeacherDetailsComponent implements OnInit {
 
   get_Authorize() {
     this.userService.currentToken$.subscribe((res) => {
-      this.idtoken = res.token;
+      this.idtoken = res?.token;
     });
   }
   set_teacher(

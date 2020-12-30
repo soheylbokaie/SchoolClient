@@ -14,6 +14,7 @@ import { IPaging } from '../Interfaces/paging-interface';
 import {
   IAddCourseStudent,
   IStudentReg,
+  IStudentUpdate,
   IStudentView,
 } from '../Interfaces/Student-interface';
 import { TokenService } from '../token.service';
@@ -36,6 +37,7 @@ export class StudentDetailsComponent implements OnInit {
     private userService: UserService,
     private toaster: ToastrService
   ) {}
+  profile_photo: string = 'assets/undraw_profile.svg';
   page = 1;
   student: IStudentView;
   idtoken: string;
@@ -46,8 +48,10 @@ export class StudentDetailsComponent implements OnInit {
   deleteitem: string;
   addcoursemode: boolean = false;
   addform: FormGroup;
+  editform: FormGroup;
   pagingInfop: IPaging;
   studentmode: boolean = false;
+  editmode: boolean = false;
   ngOnInit(): void {
     const params = this.route.snapshot.params['studentid'];
     if (params != null) {
@@ -78,6 +82,7 @@ export class StudentDetailsComponent implements OnInit {
       id: id,
       studentName: studentname,
       departmentName: departmentname,
+      photo: null,
     };
   }
   get_student_detail() {
@@ -85,6 +90,13 @@ export class StudentDetailsComponent implements OnInit {
       .get(this.httpService.base_url + 'api/getStudent/' + this.student.id)
       .subscribe((response: IStudentView) => {
         this.student = response;
+        console.log(response);
+        if (response.photo != null)
+          this.profile_photo =
+            this.userService.base_url +
+            'api/getStudentprofile/' +
+            this.student.id;
+        this.formEditInit();
       });
   }
   get_all_courses() {
@@ -193,5 +205,32 @@ export class StudentDetailsComponent implements OnInit {
       list.push('..');
     }
     return list;
+  }
+
+  formEditInit() {
+    this.editform = new FormGroup({
+      name: new FormControl(this.student.studentName, [Validators.required]),
+      picture: new FormControl('', [Validators.required]),
+    });
+  }
+  edit_item() {
+    var formData = new FormData();
+    formData.append('Photo', this.file_to_upload);
+    formData.append('StudentName', this.editform.get('name').value);
+    const paramss = new HttpParams().set('userId', this.student.id);
+    this.http
+      .put(this.userService.base_url + 'api/UpdateStudent', formData, {
+        headers: { Authorization: 'Bearer ' + this.idtoken },
+        params: paramss,
+        responseType: 'text',
+      })
+      .subscribe((response) => {
+        window.location.reload();
+      });
+  }
+  file_to_upload = null;
+  upload(event) {
+    const file = (event.target as HTMLInputElement).files[0];
+    this.file_to_upload = file;
   }
 }

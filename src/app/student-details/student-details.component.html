@@ -3,26 +3,37 @@
     <i class="fa fa-angle-double-left" aria-hidden="true"></i>
   </a>
 </p>
-<div class="card shadow mb-4 border-bottom-info">
+<div *ngIf="!editmode" class="card shadow mb-4 border-bottom-info">
   <div class="card-header py-3">
     <h6 class="m-0 font-weight-bold text-primary">Student Details</h6>
   </div>
   <div class="card-body">
     <ng-container>
+      <div class="row justify-content-center"></div>
       <div class="row">
-        <label class="col-sm-2 col-form-label">Student Name : </label>
-        <div class="col-sm-10">
-          <label type="text" readonly class="form-control-plaintext"
-            >{{ student.studentName }}
-          </label>
+        <div class="col-md-3">
+          <img
+            [src]="profile_photo"
+            class="rounded mx-auto d-block img-fluid profile-image"
+          />
         </div>
-      </div>
-      <div class="row">
-        <label class="col-auto col-form-label">Department Name : </label>
-        <div class="col-auto">
-          <label type="text" readonly class="form-control-plaintext"
-            >{{ student.departmentName }}
-          </label>
+        <div class="col-md-auto">
+          <div class="row">
+            <label class="col-form-label">Student Name : </label>
+            <div class="col-sm-auto">
+              <label type="text" readonly class="form-control-plaintext"
+                >{{ student.studentName }}
+              </label>
+            </div>
+          </div>
+          <div class="row">
+            <label class="col-form-label">Department : </label>
+            <div class="col-sm-auto">
+              <label type="text" readonly class="form-control-plaintext"
+                >{{ student.departmentName }}
+              </label>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -33,10 +44,10 @@
             <span class="icon text-white-50">
               <i class="fa fa-edit"></i>
             </span>
-            <span class="text">Edit</span>
+            <span (click)="editmode = !editmode" class="text">Edit</span>
           </a>
         </div>
-        <ng-container *ngIf="courses?.length < 6 ">
+        <ng-container *ngIf="courses?.length < 6">
           <div *ngIf="!addcoursemode; else cancel" class="col-auto">
             <a
               class="btn btn-success btn-icon-split"
@@ -62,84 +73,9 @@
         </ng-container>
       </div>
     </ng-container>
-
-    <!-- <ng-container>
-      <form (ngSubmit)="editCourse()" [formGroup]="editForm">
-        <div class="row">
-          <div class="col">
-            <input
-              type="text"
-              formControlName="courseName"
-              [class.is-invalid]="
-                editForm.get('courseName').errors &&
-                editForm.get('courseName').touched
-              "
-              class="form-control"
-              placeholder="Course Name"
-            />
-          </div>
-          <div class="col">
-            <input
-              type="text"
-              formControlName="courseDescription"
-              [class.is-invalid]="
-                editForm.get('courseDescription').errors &&
-                editForm.get('courseDescription').touched
-              "
-              class="form-control"
-              placeholder="Description"
-            />
-          </div>
-        </div>
-
-        <div class="row mt-2">
-          <div class="col">
-            <label for="Start-Date">Start Date:</label>
-            <input
-              formControlName="startDate"
-              [class.is-invalid]="
-                editForm.get('startDate').errors &&
-                editForm.get('startDate').touched
-              "
-              type="date"
-              class="form-control"
-              name="Start-Date"
-            />
-          </div>
-          <div class="col">
-            <label for="Start-Time">End Date:</label>
-            <input
-              formControlName="endDate"
-              [class.is-invalid]="
-                editForm.get('endDate').errors &&
-                editForm.get('endDate').touched
-              "
-              type="date"
-              class="form-control"
-              name="Start-Time"
-            />
-          </div>
-        </div>
-
-        <div class="row mt-4">
-          <div class="col">
-            <button
-              type="submit"
-              [disabled]="editForm.status == 'INVALID'"
-              class="btn btn-success"
-            >
-              change
-            </button>
-          </div>
-          <div class="col">
-            <button type="button" class="btn btn-danger">cancle</button>
-          </div>
-        </div>
-      </form>
-    </ng-container> -->
   </div>
 </div>
-<ng-container *ngIf="courses?.length > 0 && !addcoursemode">
+<ng-container *ngIf="courses?.length > 0 && !addcoursemode && !editmode">
   <div class="card shadow mb-4 border-bottom-info">
     <div class="card-header py-3">
       <h6 class="m-0 font-weight-bold text-primary">Student Courses</h6>
@@ -206,7 +142,7 @@
     </div>
   </div>
 </ng-container>
-<ng-container *ngIf="addcoursemode  && studentmode">
+<ng-container *ngIf="addcoursemode && studentmode">
   <div class="card shadow mb-4 border-bottom-info">
     <div class="card-header py-3">
       <h6 class="m-0 font-weight-bold text-primary">add Course</h6>
@@ -277,6 +213,62 @@
           ></pagination-controls>
         </div>
       </div>
+    </div>
+  </div>
+</ng-container>
+<ng-container *ngIf="studentmode && editmode">
+  <div class="card shadow mb-4 border-bottom-info">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Edit mode</h6>
+    </div>
+    <div class="card-body">
+      <form class="form-group" (ngSubmit)="edit_item()" [formGroup]="editform">
+        <div class="row">
+          <div class="col-auto">
+            <label>User Name : </label>
+            <div class="input-group mb-2">
+              <div class="input-group-prepend">
+                <div class="input-group-text"><i class="fa fa-user"></i></div>
+              </div>
+              <input
+                formControlName="name"
+                type="text"
+                class="form-control"
+                placeholder="Name"
+              />
+            </div>
+          </div>
+          <div class="col-md-4">
+            <label>Profile picture : </label>
+            <div class="custom-file">
+              <input
+                formControlName="picture"
+                type="file"
+                class="custom-file-input"
+                (change)="upload($event)"
+              />
+              <label class="custom-file-label">Choose file...</label>
+              <div class="invalid-feedback">this field is required !</div>
+            </div>
+          </div>
+        </div>
+        <hr class="sidebar-divider" />
+
+        <div class="row">
+          <div class="col-md-auto">
+            <button type="submit" class="btn btn-primary">Add</button>
+          </div>
+          <a
+            class="btn btn-danger btn-icon-split"
+            (click)="editmode = !editmode"
+          >
+            <span class="icon text-white-50">
+              <i class="fa fa-times"></i>
+            </span>
+            <span class="text">cancel</span>
+          </a>
+        </div>
+      </form>
     </div>
   </div>
 </ng-container>

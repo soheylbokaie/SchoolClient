@@ -24,12 +24,12 @@
       <hr class="sidebar-divider my-0" />
 
       <!-- Nav Item - Dashboard -->
-      <li class="nav-item">
-        <a
-          class="nav-link"
-          [routerLink]="['/admin-panel']"
-          routerLinkActive="active"
-        >
+      <li
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        class="nav-item"
+      >
+        <a class="nav-link" [routerLink]="['/admin-panel']">
           <i class="fa fa-tachometer"></i>
           <span>Dashboard</span></a
         >
@@ -198,14 +198,18 @@
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{
                   name
                 }}</span>
-                <img class="img-profile rounded-circle" [src]="admin_image" />
+                <img class="img-profile rounded-circle" [src]="profile_image" />
               </a>
               <!-- Dropdown - User Information -->
               <div
                 class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                 aria-labelledby="userDropdown"
               >
-                <a [routerLink]="['/admin-panel']" class="dropdown-item" href="#">
+                <a
+                  [routerLink]="['/admin-panel']"
+                  class="dropdown-item"
+                  href="#"
+                >
                   <i class="fa fa-user mr-2 text-gray-400"></i>
                   Profile
                 </a>
