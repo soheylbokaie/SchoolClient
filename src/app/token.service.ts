@@ -14,7 +14,7 @@ export class TokenService {
     return Math.floor(new Date().getTime() / 1000) >= expiry;
   }
 
-  public getUserId(token: string) {
+  public getUserId(token: string): IUSer {
     return jwtDecode(token);
   }
 

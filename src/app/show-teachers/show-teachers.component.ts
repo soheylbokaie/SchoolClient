@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Route } from '@angular/compiler/src/core';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { HttpService } from '../http.service';
 import { ITeacherView } from '../Interfaces/Teacher-interface';
 import { UserService } from '../user.service';
@@ -24,7 +25,7 @@ export class ShowTeachersComponent implements OnInit {
     this.get_teachers();
   }
 
-  get_teachers(): void {
+  get_teachers(): Subscription {
     this.route.queryParams.subscribe((obj) => {
       this.departmentId = obj.DepartmentId;
     });

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import jwtDecode from 'jwt-decode';
 import { ToastrService } from 'ngx-toastr';
-import { ReplaySubject } from 'rxjs';
+import { ReplaySubject, Subscription } from 'rxjs';
 import { HttpService } from './http.service';
 import {
   ILoginResp,
@@ -32,7 +32,7 @@ export class UserService {
   ) {}
   baseUrl = this.httpService.baseUrl;
 
-  public login(model: IUserLogin): void {
+  public login(model: IUserLogin): Subscription {
     return this.http.post(this.baseUrl + 'api/login', model).subscribe(
       (response: ILoginResp) => {
         if (response.success) {
@@ -84,9 +84,9 @@ export class UserService {
           console.log('token is valid');
           const temp = this.tokenService.getUserId(res.token);
           user = {
-            id: temp.id,
-            name: temp.name,
-            role: temp.role[0],
+            id: temp?.id,
+            name: temp?.name,
+            role: temp?.role[0],
           };
         } else {
           console.log('token has expired');
