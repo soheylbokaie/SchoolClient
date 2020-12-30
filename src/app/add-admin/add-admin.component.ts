@@ -53,7 +53,7 @@ export class AddAdminComponent implements OnInit {
       this.idtoken = res?.token;
     });
   }
-  add_item() {
+  add_item(): void {
     const temp: IAdminAdd = {
       adminName: this.addForm.get('adminName').value,
       userName: this.addForm.get('userName').value,

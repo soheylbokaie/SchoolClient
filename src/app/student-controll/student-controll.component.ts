@@ -40,13 +40,13 @@ export class StudentControllComponent implements OnInit {
   depid: string;
 
   ngOnInit(): void {
-    this.depid = this.route.snapshot.params['depid'];
+    this.depid = this.route.snapshot.params.depid;
     this.GetAllStudents();
     this.formAddInit();
     this.get_Authorize();
   }
 
-  formAddInit() {
+  formAddInit(): void {
     this.addForm = new FormGroup({
       username: new FormControl('', [Validators.required]),
       password: new FormControl('', [
@@ -72,7 +72,7 @@ export class StudentControllComponent implements OnInit {
     });
   }
 
-  add_item() {
+  add_item(): void {
     const temp: IStudentReg = {
       userName: this.addForm.get('username').value,
       studentName: this.addForm.get('studentName').value,

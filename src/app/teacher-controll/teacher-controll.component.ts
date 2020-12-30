@@ -41,13 +41,13 @@ export class TeacherControllComponent implements OnInit {
   depid: string;
 
   ngOnInit(): void {
-    this.depid = this.route.snapshot.params['depid'];
+    this.depid = this.route.snapshot.params.depid;
     this.GetAllTeachers();
     this.formAddInit();
     this.get_Authorize();
   }
 
-  formAddInit() {
+  formAddInit(): void {
     this.addForm = new FormGroup({
       userName: new FormControl('', [Validators.required]),
       password: new FormControl('', [
@@ -73,7 +73,7 @@ export class TeacherControllComponent implements OnInit {
     });
   }
 
-  add_item() {
+  add_item(): void {
     const temp: ITeacherReg = {
       teacherName: this.addForm.get('teacherName').value,
       userName: this.addForm.get('userName').value,
