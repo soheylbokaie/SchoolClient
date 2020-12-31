@@ -84,6 +84,7 @@ export class CoursesControllComponent implements OnInit {
       startDate: new FormControl('', [Validators.required]),
       endDate: new FormControl('', [Validators.required]),
     });
+    console.log(this.course);
   }
   editCourse(): void {
     const temp: IUpdateCourse = {
@@ -100,6 +101,7 @@ export class CoursesControllComponent implements OnInit {
       .subscribe((response) => {
         this.editmode = !this.editmode;
         this.toaster.success('course has been updated', 'success');
+        this.GetCourse();
       });
   }
 
