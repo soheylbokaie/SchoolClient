@@ -13,7 +13,7 @@ import { CoursesControllComponent } from './courses-controll/courses-controll.co
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { NotFoundComponent } from './not-found/not-found.component';
-import { RegisterComponent } from './register/register.component';
+import { NotfoundPanelComponent } from './notfound-panel/notfound-panel.component';
 import { ShowTeachersComponent } from './show-teachers/show-teachers.component';
 import { StudentControllComponent } from './student-controll/student-controll.component';
 import { StudentDetailsComponent } from './student-details/student-details.component';
@@ -30,6 +30,7 @@ const routes: Routes = [
       { path: '', component: HomeComponent },
       { path: 'login', component: LoginComponent },
       { path: 'Departments', component: TaechersComponent },
+      { path: 'all-teachers', component: ShowTeachersComponent },
       { path: '404-error', component: NotFoundComponent },
     ],
   },
@@ -97,8 +98,11 @@ const routes: Routes = [
         component: AddAdminComponent,
       },
       { path: '', component: UserProfileComponent },
+      { path: '404-error', component: NotfoundPanelComponent },
+      { path: '**', redirectTo: '404-error' },
     ],
   },
+  { path: '**', redirectTo: '404-error' },
 ];
 
 @NgModule({

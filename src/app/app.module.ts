@@ -31,12 +31,13 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { CoursesControllComponent } from './courses-controll/courses-controll.component';
 import { StudentControllComponent } from './student-controll/student-controll.component';
 import { TeacherControllComponent } from './teacher-controll/teacher-controll.component';
-import {NgxPaginationModule} from 'ngx-pagination';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { PagingDirective } from './paging.directive';
 import { StudentDetailsComponent } from './student-details/student-details.component';
 import { TeacherDetailsComponent } from './teacher-details/teacher-details.component';
 import { AddAdminComponent } from './add-admin/add-admin.component';
-
+import { CarouselModule, WavesModule, ButtonsModule } from 'angular-bootstrap-md';
+import { NotfoundPanelComponent } from './notfound-panel/notfound-panel.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -65,6 +66,7 @@ import { AddAdminComponent } from './add-admin/add-admin.component';
     StudentDetailsComponent,
     TeacherDetailsComponent,
     AddAdminComponent,
+    NotfoundPanelComponent,
   ],
   imports: [
     BrowserModule,
@@ -78,6 +80,9 @@ import { AddAdminComponent } from './add-admin/add-admin.component';
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     NgxPaginationModule,
+    CarouselModule,
+    WavesModule,
+    ButtonsModule
   ],
   providers: [],
   bootstrap: [AppComponent],
