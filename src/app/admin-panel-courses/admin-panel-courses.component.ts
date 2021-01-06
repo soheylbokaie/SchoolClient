@@ -99,7 +99,7 @@ export class AdminPanelCoursesComponent implements OnInit {
   public GetallCourses(): void {
     this.route.queryParams.subscribe((obj) => {
       this.pagingInfop = {
-        currentPages: !!obj.PageSize ? +obj.PageNumber : 1,
+        currentPages: !!obj.PageNumber ? +obj.PageNumber : 1,
         pageSize: !!obj.PageSize ? +obj.PageSize : 10,
         nextLink: '',
         prevLink: '',

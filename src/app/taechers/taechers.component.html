@@ -1,7 +1,4 @@
 <div class="container mt-5">
-
-
-
   <table class="table">
     <thead class="thead-dark">
       <tr>
@@ -11,11 +8,110 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let dep of departments; let i = index">
-        <th scope="row">{{ i + 1 }}</th>
+      <tr *ngFor="let dep of departments">
+        <th scope="row">{{ dep.departmentId }}</th>
         <td>{{ dep.name }}</td>
-        <td><a [routerLink]="['/all-teachers']" [queryParams]="{ DepartmentId: dep.departmentId}">show teachers</a></td>
+        <td>
+          <a
+            [routerLink]="['/all-teachers']"
+            [queryParams]="{ DepartmentId: dep.departmentId }"
+            >show teachers</a
+          >
+        </td>
       </tr>
     </tbody>
   </table>
+  <div class="row justify-content-center">
+    <div class="col-sm-12 col-md-6">
+      <div
+        class="dataTables_paginate paging_simple_numbers"
+        id="dataTable_paginate"
+      >
+        <ul class="pagination" *ngIf="pagingInfop.totalPages != 1">
+          <li
+            [ngClass]="{ disabled: pagingInfop.currentPages === 1 }"
+            class="paginate_button page-item previous"
+            id="dataTable_previous"
+          >
+            <a
+              [routerLink]="[]"
+              [queryParams]="{
+                PageNumber: pagingInfop.currentPages - 1
+              }"
+              aria-controls="dataTable"
+              data-dt-idx="0"
+              tabindex="0"
+              class="page-link"
+              [ngClass]="{
+                'color-green': pagingInfop.currentPages !== 1
+              }"
+              >Previous</a
+            >
+          </li>
+          <ng-container *ngFor="let i of counter(pagingInfop.currentPages)">
+            <ng-container *ngIf="i != '..'; else max">
+              <li
+                class="paginate_button page-item"
+                [ngClass]="{
+                  active: pagingInfop.currentPages === i
+                }"
+              >
+                <a
+                  [routerLink]="[]"
+                  [queryParams]="{
+                    PageNumber: i
+                  }"
+                  [ngClass]="{
+                    'color-green': pagingInfop.currentPages !== i
+                  }"
+                  aria-controls="dataTable"
+                  data-dt-idx="1"
+                  tabindex="0"
+                  class="page-link"
+                  >{{ i }}</a
+                >
+              </li>
+            </ng-container>
+            <ng-template #max>
+              <li class="paginate_button page-item disabled">
+                <a
+                  [ngClass]="{
+                    'color-green': pagingInfop.currentPages !== i
+                  }"
+                  aria-controls="dataTable"
+                  data-dt-idx="1"
+                  tabindex="0"
+                  class="page-link"
+                  >{{ i }}</a
+                >
+              </li>
+            </ng-template>
+          </ng-container>
+          <li
+            [ngClass]="{
+              disabled: pagingInfop.currentPages === pagingInfop.totalPages
+            }"
+            class="paginate_button page-item next"
+            id="dataTable_next"
+          >
+            <a
+              [ngClass]="{
+                'color-green':
+                  pagingInfop.currentPages !== pagingInfop.totalPages
+              }"
+              [routerLink]="[]"
+              [queryParams]="{
+                PageNumber: pagingInfop.currentPages + 1
+              }"
+              aria-controls="dataTable"
+              data-dt-idx="7"
+              tabindex="0"
+              class="page-link"
+              >Next</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </div>
