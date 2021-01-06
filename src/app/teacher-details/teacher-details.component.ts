@@ -118,7 +118,7 @@ export class TeacherDetailsComponent implements OnInit {
           });
         },
         (error) => {
-          this.toaster.error('tehre is an error', 'error');
+          this.toaster.error('there is an error', 'error');
         }
       );
   }
@@ -126,9 +126,7 @@ export class TeacherDetailsComponent implements OnInit {
   get_teacher_courses(): void {
     this.http
       .get(
-        this.httpService.baseUrl +
-          'TeacherTimeTable/' +
-          this.teacher.teacherId,
+        this.httpService.baseUrl + 'TeacherTimeTable/' + this.teacher.teacherId,
         {
           headers: { Authorization: 'Bearer ' + this.idtoken },
         }
