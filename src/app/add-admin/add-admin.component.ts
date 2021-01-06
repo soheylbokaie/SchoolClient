@@ -78,6 +78,7 @@ export class AddAdminComponent implements OnInit {
                 break;
 
               default:
+                errorMessage = 'this user name has been taken'
                 break;
             }
             this.toastr.error(errorMessage, 'Error');

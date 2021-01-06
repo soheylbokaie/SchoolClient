@@ -68,7 +68,7 @@ export class StudentControllComponent implements OnInit {
   }
   get_Authorize(): void {
     this.userService.currentToken$.subscribe((res) => {
-      this.idtoken = res.token;
+      this.idtoken = res?.token;
     });
   }
 
