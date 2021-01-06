@@ -37,10 +37,7 @@
               />
               <div class="form-check mb-2 mr-sm-2"></div>
 
-              <button
-                type="submit"
-                class="btn btn-outline-success mb-2"
-              >
+              <button type="submit" class="btn btn-outline-success mb-2">
                 <i class="fa fa-check"></i>
               </button>
             </form>
@@ -208,13 +205,13 @@
             role="row"
             class="odd text-center"
             *ngFor="
-              let course of available_courses
+              let course of availableCourses
                 | paginate
                   : {
                       id: 'listing_paginations',
                       itemsPerPage: 10,
                       currentPage: page,
-                      totalItems: available_courses?.length
+                      totalItems: availableCourses?.length
                     }
             "
           >
