@@ -107,7 +107,7 @@ export class StudentDetailsComponent implements OnInit {
     this.route.queryParams.subscribe((obj) => {
       this.pagingInfop = {
         currentPages: 1,
-        pageSize: 300,
+        pageSize: 10000,
         nextLink: '',
         prevLink: '',
         totalCount: 0,

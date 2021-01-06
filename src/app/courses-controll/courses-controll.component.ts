@@ -33,6 +33,7 @@ export class CoursesControllComponent implements OnInit {
   idtoken: string;
   editmode = false;
   editForm: FormGroup;
+  role: string;
 
   ngOnInit(): void {
     this.courseId = this.route.snapshot.params.id;
@@ -54,6 +55,7 @@ export class CoursesControllComponent implements OnInit {
   get_Authorize(): void {
     this.userService.currentToken$.subscribe((res) => {
       this.idtoken = res?.token;
+      this.role = res?.role;
     });
   }
 

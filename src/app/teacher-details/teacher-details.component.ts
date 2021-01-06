@@ -95,7 +95,7 @@ export class TeacherDetailsComponent implements OnInit {
     this.route.queryParams.subscribe((obj) => {
       this.pagingInfop = {
         currentPages: 1,
-        pageSize: 300,
+        pageSize: 10000,
         nextLink: '',
         prevLink: '',
         totalCount: 0,
@@ -111,6 +111,7 @@ export class TeacherDetailsComponent implements OnInit {
         (response: IResponseCourse) => {
           this.allcourses = response.courses;
           this.pagingInfop = response.pagingInfo;
+          console.log(this.allcourses);
           this.allcourses.forEach((element) => {
             if (element.department === this.teacher.departmentName) {
               this.availableCourses.push(element);

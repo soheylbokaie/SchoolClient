@@ -59,7 +59,7 @@
           <div *ngIf="!addcoursemode; else cancel" class="col-auto">
             <a
               class="btn btn-success btn-icon-split"
-              (click)="addcoursemode = !addcoursemode"
+              (click)="addcoursemode = !addcoursemode; get_all_courses()"
             >
               <span class="icon text-white-50">
                 <i class="fa fa-edit"></i>

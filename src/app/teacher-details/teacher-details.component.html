@@ -97,7 +97,7 @@
           <ng-template #cancel>
             <a
               class="btn btn-danger btn-icon-split"
-              (click)="addcoursemode = !addcoursemode"
+              (click)="addcoursemode = !addcoursemode;get_all_courses()"
             >
               <span class="icon text-white-50">
                 <i class="fa fa-times"></i>

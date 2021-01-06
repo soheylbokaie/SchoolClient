@@ -73,7 +73,6 @@ const routes: Routes = [
       },
       {
         path: 'Courses/:id',
-        canActivate: [AdminGuardGuard],
         component: CoursesControllComponent,
       },
       {
