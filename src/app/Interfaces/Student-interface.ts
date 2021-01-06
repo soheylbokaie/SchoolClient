@@ -11,6 +11,7 @@ export interface IStudentView {
   studentName: string;
   departmentName: string;
   photo: string;
+  userName: string;
 }
 
 export interface IStudentUpdate {

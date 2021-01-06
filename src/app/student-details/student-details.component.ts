@@ -53,6 +53,7 @@ export class StudentDetailsComponent implements OnInit {
   studentmode = false;
   editmode = false;
   fileToUpload: null | File;
+  username: string;
 
   ngOnInit(): void {
     const params = this.route.snapshot.params.studentid;
@@ -85,6 +86,7 @@ export class StudentDetailsComponent implements OnInit {
       studentName: studentname,
       departmentName: departmentname,
       photo: null,
+      userName: null,
     };
   }
   get_student_detail(): void {
@@ -92,7 +94,6 @@ export class StudentDetailsComponent implements OnInit {
       .get(this.httpService.baseUrl + 'api/getStudent/' + this.student.id)
       .subscribe((response: IStudentView) => {
         this.student = response;
-        console.log(response);
         if (response.photo != null) {
           this.profilePhoto =
             this.userService.baseUrl +
